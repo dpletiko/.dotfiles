@@ -39,12 +39,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 
-
-
 -- Write with sudo ":w!!"
 vim.keymap.set("c", "w!!", "w !sudo tee % >/dev/null")
-
--- Undotree
-vim.keymap.set("n", "<F5>", ":UndotreeToggle<CR>")
 
 vim.keymap.set("n", "<leader><CR>", ":so $MYVIMRC<CR>")

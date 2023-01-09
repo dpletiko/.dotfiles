@@ -20,6 +20,7 @@ vim.keymap.set('n', '<leader>pl', builtin.loclist, {})
 vim.keymap.set('n', '<leader>pq', builtin.quickfix, {})
 
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>ps', function()
 	builtin.grep_string({ search = vim.fn.input("Grep For > ") })
 end)
