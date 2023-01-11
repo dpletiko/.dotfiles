@@ -3,27 +3,29 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-  'tsserver',
-  'eslint',
-  'sumneko_lua',
-  'rust_analyzer',
-  'intelephense'
+    'tsserver',
+    'eslint',
+    'sumneko_lua',
+    'rust_analyzer',
+    'intelephense',
+    --'vuels',
+    'volar'
 })
 
 -- Fix Undefined global 'vim'
 lsp.configure('sumneko_lua', {
     settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            },
-            workspace = {
-				library = {
-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-					[vim.fn.stdpath("config") .. "/lua"] = true,
-				},
-			},
-        }
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' }
+        },
+        workspace = {
+          library = {
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.stdpath("config") .. "/lua"] = true,
+          },
+        },
+      }
     }
 })
 
@@ -41,14 +43,52 @@ lsp.configure('intelephense', {
     }
 })
 
+-- Configure tsserver
+lsp.configure('tsserver', {
+    settings = {
+      documentFormatting = true
+    },
+})
+
+-- Configure vue
+lsp.configure('vuels', {
+    settings = {
+      vetur = {
+        ignoreProjectWarning = true,
+
+        completion = {
+          autoImport = true,
+          useScaffoldSnippets = true
+        },
+        format = {
+          defaultFormatter = {
+            html = "none",
+            js = "prettier",
+            ts = "prettier",
+          }
+        },
+        validation = {
+          template = true,
+          script = true,
+          style = true,
+          templateProps = true,
+          interpolation = true
+        },
+        experimental = {
+          templateInterpolationService = true
+        }
+      },
+    }
+})
+
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ["<C-Space>"] = cmp.mapping.complete(),
 })
 
 -- disable completion with tab
@@ -57,25 +97,25 @@ cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
 lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+    mapping = cmp_mappings
 })
 
 lsp.set_preferences({
     suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
+    -- sign_icons = {
+    --   error = 'E',
+    --   warn = 'W',
+    --   hint = 'H',
+    --   info = 'I'
+    -- }
 })
 
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
   if client.name == "eslint" then
-      vim.cmd.LspStop('eslint')
-      return
+    vim.cmd.LspStop('eslint')
+    return
   end
 
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
