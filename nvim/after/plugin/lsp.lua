@@ -1,4 +1,13 @@
 local lsp = require("lsp-zero")
+local nlspsettings = require("nlspsettings")
+
+nlspsettings.setup({
+  -- config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+  local_settings_dir = ".vscode",
+  local_settings_root_markers_fallback = { '.git' },
+  append_default_schemas = true,
+  loader = 'json'
+})
 
 lsp.preset("recommended")
 
@@ -31,14 +40,19 @@ lsp.configure('sumneko_lua', {
 
 -- Configure intelephense
 lsp.configure('intelephense', {
+    on_init = function(client)
+
+
+    end,
     settings = {
       intelephense = {
         files = {
           maxSize = 10000000
         },
-        environment = {
-          phpVersion = "7.3"
-        }
+--        root_dir = require('lspconfig.util').root_pattern('composer.json', '.git'),
+--         environment = {
+--           phpVersion = "7.3"
+--         }
       }
     }
 })
@@ -116,6 +130,12 @@ lsp.on_attach(function(client, bufnr)
   if client.name == "eslint" then
     vim.cmd.LspStop('eslint')
     return
+  end
+
+  if client.name == "intelephense" then
+    -- insert line comment
+    -- vim.keymap.set("n", "<leader>lc", "<S-v>:s/^/\\/\\/<CR>", opts)
+    vim.keymap.set("n", "<leader>lc", "<S-i>// <Esc>", opts)
   end
 
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
