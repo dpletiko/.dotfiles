@@ -154,6 +154,11 @@ _G.packer_plugins = {
     path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/neodev.nvim",
     url = "https://github.com/folke/neodev.nvim"
   },
+  ["nlsp-settings.nvim"] = {
+    loaded = true,
+    path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/nlsp-settings.nvim",
+    url = "https://github.com/tamago324/nlsp-settings.nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/nvim-cmp",
