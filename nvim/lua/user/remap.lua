@@ -43,3 +43,17 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("c", "w!!", "w !sudo tee % >/dev/null")
 
 vim.keymap.set("n", "<leader><CR>", ":so $MYVIMRC<CR>")
+
+
+-- QuickFix bindings
+vim.keymap.set("n", "<C-j>", ":cnext<CR>")
+vim.keymap.set("n", "<C-k>", ":cprev<CR>")
+-- vim.keymap.set("<C-e>", ":copen<CR>")
+-- vim.keymap.set("<C-x>", ":cclose<CR>")
+vim.keymap.set("n","<C-l>", ":cex []<CR>")
+vim.keymap.set("n", "<C-x>", function()
+    local win = vim.api.nvim_get_current_win()
+    local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+    local action = qf_winid > 0 and 'cclose' or 'copen'
+    vim.cmd(action)
+end)
