@@ -58,6 +58,7 @@ lsp.configure('intelephense', {
 
 -- Configure tsserver
 lsp.configure('tsserver', {
+    detached = false,
     settings = {
       documentFormatting = true
     },
@@ -94,6 +95,7 @@ lsp.configure('tsserver', {
 --     }
 -- })
 lsp.configure('volar', {
+    detached = false,
     settings = {
       volar = {
 
@@ -167,10 +169,10 @@ lsp.set_preferences({
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
-  if client.name == "eslint" then
-    vim.cmd.LspStop('eslint')
-    return
-  end
+  -- if client.name == "eslint" then
+  --   vim.cmd.LspStop('eslint')
+  --   return
+  -- end
 
   if client.name == "intelephense" then
     -- insert line comment
