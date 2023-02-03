@@ -77,6 +77,10 @@ return packer.startup(function(use)
 		}
 	}
 
+	use 'mfussenegger/nvim-dap'
+
+	use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim'}
+
 	use("folke/zen-mode.nvim")
 	use("github/copilot.vim")
 

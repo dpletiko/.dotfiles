@@ -64,6 +64,37 @@ lsp.configure('tsserver', {
     },
 })
 
+-- lsp.configure('dartls', {
+--   cmd = { 'dart',  '/home/dpleti/git/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp' },
+--   default_config = {
+--     cmd = { 'dart',  '/home/dpleti/git/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp' },
+--     filetypes = { 'dart' },
+--     root_dir = require('lspconfig.util').root_pattern 'pubspec.yaml',
+--     init_options = {
+--       onlyAnalyzeProjectsWithOpenFiles = true,
+--       suggestFromUnimportedLibraries = true,
+--       closingLabels = true,
+--       outline = true,
+--       flutterOutline = true,
+--     },
+--     settings = {
+--       dart = {
+--         completeFunctionCalls = true,
+--         showTodos = true,
+--       },
+--     },
+--   },
+--   docs = {
+--     description = [[
+-- https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server/tool/lsp_spec
+-- Language server for dart.
+-- ]],
+--     default_config = {
+--       root_dir = [[root_pattern("pubspec.yaml")]],
+--     },
+--   },
+-- })
+
 -- Configure vue
 -- lsp.configure('vuels', {
 --     settings = {
@@ -96,6 +127,7 @@ lsp.configure('tsserver', {
 -- })
 lsp.configure('volar', {
     detached = false,
+    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
     settings = {
       volar = {
 
