@@ -14,7 +14,8 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'tsserver',
     'eslint',
-    'sumneko_lua',
+    -- 'sumneko_lua',
+    'lua_ls',
     'rust_analyzer',
     'intelephense',
     --'vuels',
@@ -65,6 +66,10 @@ lsp.configure('tsserver', {
 })
 
 -- lsp.configure('dartls', {
+--   force_setup = true,
+--   on_attach = function()
+--     print('hello dartls')
+--   end,
 --   cmd = { 'dart',  '/home/dpleti/git/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp' },
 --   default_config = {
 --     cmd = { 'dart',  '/home/dpleti/git/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp' },
@@ -128,6 +133,7 @@ lsp.configure('tsserver', {
 lsp.configure('volar', {
     detached = false,
     filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
+    -- filetypes = {'vue'},
     settings = {
       volar = {
 

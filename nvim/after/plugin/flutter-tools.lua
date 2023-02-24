@@ -22,4 +22,15 @@ require('flutter-tools').setup({
       -- require("flutter-tools.lsp").get_lsp_root_dir() .. "/.vscode/launch.json")
     end,
   },
+  dev_log = {
+    enabled = false,
+  },
+  lsp = require('lsp-zero').build_options('dartls', {}),
+  -- lsp = {
+  --   autostart = true,
+  --   on_attach = (function(client, bufnr)
+  --     print("FLUTTER TOOLS ON ATTACH")
+  --     require('lsp-zero').on_attach(client, bufnr)
+  --   end),
+  -- }
 })

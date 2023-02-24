@@ -22,11 +22,13 @@ return packer.startup(function(use)
 		requires = {
 			{'nvim-lua/plenary.nvim'},
 			{ "nvim-telescope/telescope-live-grep-args.nvim" },
-			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+			-- { "nvim-telescope/telescope-dap.nvim" }
 		},
 		config = function()
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("live_grep_args")
+			-- require("telescope").load_extension("dap")
 		end
 	}
 
@@ -48,9 +50,13 @@ return packer.startup(function(use)
 	use("jwalton512/vim-blade")
 	use("sheerun/vim-polyglot")
 
-	use("tpope/vim-commentary")
-
-	use("folke/neodev.nvim")
+	-- use("tpope/vim-commentary")
+	use {
+		'numToStr/Comment.nvim',
+		config = function()
+			require('Comment').setup()
+		end
+	}
 
 	use {
 		'VonHeikemen/lsp-zero.nvim',
@@ -77,7 +83,10 @@ return packer.startup(function(use)
 		}
 	}
 
-	use 'mfussenegger/nvim-dap'
+
+	use("folke/neodev.nvim")
+	use('mfussenegger/nvim-dap')
+	use({ "rcarriga/nvim-dap-ui", tag = 'v3.4.0', requires = {"mfussenegger/nvim-dap"} })
 
 	use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim'}
 
@@ -87,5 +96,6 @@ return packer.startup(function(use)
 	use("gruvbox-community/gruvbox")
 	use("sainnhe/sonokai")
 
+	use('mortepau/codicons.nvim')
 end)
 
