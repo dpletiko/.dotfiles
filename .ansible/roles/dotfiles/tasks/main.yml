@@ -1,0 +1,22 @@
+- name: Clone .dotfiles repository
+  ansible.builtin.git:
+    repo: https://github.com/dpletiko/.dotfiles.git
+    dest: ~/.dotfiles
+
+- name: Symlink tmux
+  ansible.builtin.file:
+    src: ~/.dotfiles/tmux/.tmux.conf
+    dest: ~/.tmux.conf
+    owner: foo
+    group: foo
+    state: link
+
+- name: Symlink nvim
+  ansible.builtin.file:
+    src: ~/.dotfiles/nvim
+    dest: ~/.config/nvim
+    #owner: foo
+    #group: foo
+    state: link
+
+# symlink i3

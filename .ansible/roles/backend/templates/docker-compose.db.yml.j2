@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  {% for db in databases %}
+
+  db:
+    image: {{ db }}
+    restart: always
+    environment:
+      {{ db.environment }}
+
+  {% endfor %}
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

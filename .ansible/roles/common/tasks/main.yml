@@ -1,0 +1,29 @@
+- name: Install packages
+  ansible.builtin.package:
+    name: {{ item }}
+    state: present
+  with_items:
+    - curl
+    - fuse
+    - libfuse2
+    - make
+    - cmake
+    - fdfind
+    - git
+    - tmux
+
+- name: Install TPM (TMux Plugin Manager)
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+
+
+- name: Install NVM (Node Version Manager)
+  shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+
+
+
+# or include_tasks
+- import_tasks: setup_nvim.yml
+
+
