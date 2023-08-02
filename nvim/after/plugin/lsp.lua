@@ -14,29 +14,11 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'tsserver',
     'eslint',
-    -- 'sumneko_lua',
     'lua_ls',
     'rust_analyzer',
     'intelephense',
     --'vuels',
     'volar'
-})
-
--- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { 'vim' }
-        },
-        workspace = {
-          library = {
-            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-            [vim.fn.stdpath("config") .. "/lua"] = true,
-          },
-        },
-      }
-    }
 })
 
 -- Configure intelephense
