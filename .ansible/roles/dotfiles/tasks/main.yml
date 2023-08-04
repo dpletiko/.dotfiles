@@ -1,6 +1,6 @@
 - name: Clone .dotfiles repository
   ansible.builtin.git:
-    repo: https://github.com/dpletiko/.dotfiles.git
+    repo: git@github.com:dpletiko/.dotfiles.git
     dest: ~/.dotfiles
   tags:
     - skip_ansible_lint
