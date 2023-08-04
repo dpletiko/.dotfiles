@@ -1,0 +1,14 @@
+databases:
+  postgres:
+    - image: postgres:bookworm
+      environment:
+        POSTGRES_PASSWORD: example
+
+    - image: postgres:13.11-bookworm
+      environment:
+        POSTGRES_PASSWORD: example
+  mysql:
+    - image: mysql:debian
+      environment:
+        MYSQL_ROOT_PASSWORD: example
+

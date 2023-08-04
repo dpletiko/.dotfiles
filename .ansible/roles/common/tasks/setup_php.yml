@@ -1,0 +1,48 @@
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - lsb-release
+    - apt-transport-https
+    - ca-certificates
+
+- name: Add SURY PHP PPA repository keyrings
+  become: true
+  ansible.builtin.get_url:
+    url: https://packages.sury.org/php/apt.gpg
+    dest: /etc/apt/trusted.gpg.d/php.gpg
+    mode: '0644'
+  # ansible.builtin.shell: >
+  #  wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+
+- name: Add SURY PHP PPA repository to sources
+  become: true
+  ansible.builtin.copy:
+    content: "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main"
+    dest: /etc/apt/sources.list.d/php.list
+    mode: '0644'
+  # ansible.builtin.shell: >
+  #   echo "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main" > /etc/apt/sources.list.d/php.list
+
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+
+- name: Install PHP
+  become: true
+  ansible.builtin.package:
+    name: 'php{{ item }}'
+    state: present
+  loop: '{{ php_versions }}'
+
+
+- name: Install PHP Extensions
+  become: true
+  ansible.builtin.package:
+    name: 'php{{ item.0 }}-{{ item.1 }}'
+    state: present
+  loop: "{{ php_versions | product(php_extensions) | list }}"

@@ -1,9 +1,0 @@
-- name: Install Databases
-  loop: '{{ databases }}'
-  loop_control:
-    label: "{{ item.image }}"
-  template:
-    src: docker-compose.db.yml.j2
-    dest: "{{ lookup('env', 'HOME') }}/docker/{{ item.image.split(':')[0] }}/docker-compose.yml"
-
-

@@ -3,6 +3,7 @@
     repo: https://github.com/dpletiko/.dotfiles.git
     dest: ~/.dotfiles
 
+
 - name: Symlink tmux
   ansible.builtin.file:
     src: ~/.dotfiles/tmux/.tmux.conf
@@ -10,6 +11,7 @@
     owner: foo
     group: foo
     state: link
+
 
 - name: Symlink nvim
   ansible.builtin.file:

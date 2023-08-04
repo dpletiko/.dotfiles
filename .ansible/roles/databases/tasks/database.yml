@@ -1,0 +1,21 @@
+- name: Create docker-compose.yml files
+  loop:  "{{ database.value }}"
+  template:
+    src: docker-compose.db.yml.j2
+    dest: "/docker/{{ database.key }}/docker-compose.yml"
+
+
+- name: "Deploy {{ database.key }}"
+  community.docker.docker_compose:
+    project_src: "/docker/{{ database.key }}"
+    register: output
+
+- name: Show results
+  ansible.builtin.debug:
+    var: output
+
+
+# - name: "Verify that {{ database.key }} services are running"
+#   ansible.builtin.assert:
+#     that:
+#       - "not output.services.db.flask_db_1.state.running"

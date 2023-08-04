@@ -1,0 +1,18 @@
+php_versions:
+  - 5.6
+  - 7.2
+  - 7.3
+  - 7.4
+  - 8.2
+
+php_extensions:
+  - curl
+  - bcmath
+  - gd
+  - mbstring
+  - zip
+  - pgsql
+
+
+node_versions:
+  - node

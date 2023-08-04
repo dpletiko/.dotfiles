@@ -1,0 +1,12 @@
+- name: Ensure '/docker' dir exists
+  ansible.builtin.file:
+    path: /docker
+    state: directory
+    mode: '0755'
+
+
+- include_tasks: database.yml
+  loop: "{{ lookup('ansible.builtin.dict', databases) }}"
+  loop_control:
+    loop_var: database
+

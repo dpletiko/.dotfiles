@@ -1,29 +1,45 @@
+- name: Print env HOME
+  ansible.builtin.debug:
+    msg: "{{ lookup('env', 'HOME') }}"
+
+
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    upgrade: "yes"
+    update_cache: true
+
+
 - name: Install packages
   ansible.builtin.package:
-    name: {{ item }}
+    name: "{{ item }}"
     state: present
   with_items:
     - curl
-    - fuse
-    - libfuse2
     - make
     - cmake
-    - fdfind
     - git
     - tmux
+    - nginx
+    - python3.11-venv
+
 
 - name: Install TPM (TMux Plugin Manager)
   ansible.builtin.git:
-    repo: https://github.com/tmux-plugins/tpm
+    repo: https://github.com/tmux-plugins/tpm.git
     dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
-
-
-- name: Install NVM (Node Version Manager)
-  shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-
+  tags:
+    - skip_ansible_lint
 
 
 # or include_tasks
-- import_tasks: setup_nvim.yml
+- name: Setup NeoVim
+  ansible.builtin.import_tasks: setup_nvim.yml
 
 
+- name: Setup NodeJS
+  ansible.builtin.import_tasks: setup_node.yml
+
+
+- name: Setup PHP
+  ansible.builtin.import_tasks: setup_php.yml
