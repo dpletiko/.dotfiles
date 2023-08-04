@@ -7,12 +7,27 @@ services:
         restart: always
 {% if db.environment is defined %}
         environment:
-            {{ db.environment | to_nice_yaml }}
+            {{ db.environment | to_nice_yaml | trim }}
+{% endif %}
+{% if db.volumes is defined %}
+        volumes:
+            {{ db.volumes | to_nice_yaml | trim }}
 {% endif %}
 {% if db.ports is defined %}
         ports:
-            {{ db.ports | to_nice_yaml }}
+            {{ db.ports | to_nice_yaml | trim }}
+{% endif %}
+{% if db.networks is defined %}
+        networks:
+            {{ db.networks | to_nice_yaml | trim }}
 {% endif %}
 
+{% endfor %}
+
+
+networks:
+{% for network in database.value | map(attribute='networks') | flatten | unique %}
+    {{ network }}:
+        name: {{ network }}
 {% endfor %}
 

@@ -13,12 +13,12 @@
     state: restarted
 
 
+- name: Setup adminer
+  ansible.builtin.include_tasks: adminer.yml
+
+
 - name: Setup databases
   ansible.builtin.include_tasks: database.yml
   loop: "{{ lookup('ansible.builtin.dict', databases) }}"
   loop_control:
     loop_var: database
-
-
-- name: Setup adminer
-  ansible.builtin.include_tasks: adminer.yml

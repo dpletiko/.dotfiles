@@ -6,5 +6,17 @@ services:
         restart: always
 {% if adminer.ports is defined %}
         ports:
-            {{ adminer.ports | to_nice_yaml }}
+            {{ adminer.ports | to_nice_yaml | trim }}
+{% endif %}
+{% if adminer.networks is defined %}
+        networks:
+            {{ adminer.networks | to_nice_yaml | trim }}
+{% endif %}
+
+{% if adminer.networks is defined %}
+networks:
+{% for network in adminer.networks %}
+    {{ network }}:
+        name: {{ network }}
+{% endfor %}
 {% endif %}
