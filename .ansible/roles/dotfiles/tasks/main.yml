@@ -2,6 +2,7 @@
   ansible.builtin.git:
     repo: git@github.com:dpletiko/.dotfiles.git
     dest: ~/.dotfiles
+    accept_hostkey: true
   tags:
     - skip_ansible_lint
 
