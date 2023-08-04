@@ -1,23 +1,22 @@
-- name: "Ensures dir exists | /docker/{{ database.key }}"
+- name: "Ensures dir exists | /docker/adminer"
   become: true
   ansible.builtin.file:
-    path: "/docker/{{ database.key }}"
+    path: "/docker/adminer"
     state: directory
     mode: '0755'
 
 
-- name: "Ensure docker-compose.yml exists | /docker/{{ database.key }}"
+- name: "Ensure docker-compose.yml exists | /docker/adminer/docker-compose.yml"
   become: true
-  loop: "{{ database.value }}"
   ansible.builtin.template:
-    src: docker-compose.db.yml.j2
-    dest: "/docker/{{ database.key }}/docker-compose.yml"
+    src: docker-compose.adminer.yml.j2
+    dest: "/docker/adminer/docker-compose.yml"
     mode: '0666'
 
 
-- name: "Start docker services | /docker/{{ database.key }}"
+- name: "Start docker services | /docker/adminer"
   ansible.builtin.command:
-    chdir: "/docker/{{ database.key }}"
+    chdir: "/docker/adminer"
     cmd: docker compose up -d
   register: output
 

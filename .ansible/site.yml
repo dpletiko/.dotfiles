@@ -1,9 +1,7 @@
 - name: Run Setup
   hosts: localhost
   connection: local
-  # remote_user: root
-  # become: true
   roles:
     - common
-    - dotfiles
+    # - dotfiles
     - databases

@@ -7,8 +7,16 @@ databases:
     - image: postgres:13.11-bookworm
       environment:
         POSTGRES_PASSWORD: example
+      ports:
+        - "5433:5432"
+
   mysql:
     - image: mysql:debian
       environment:
         MYSQL_ROOT_PASSWORD: example
 
+
+adminer:
+  image: adminer
+  ports:
+    - 8080:8080

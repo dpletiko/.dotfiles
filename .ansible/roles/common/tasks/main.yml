@@ -14,25 +14,32 @@
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
+  become: true
   with_items:
+    # - lsb-release
+    - ca-certificates
+    - apt-transport-https
+    - software-properties-common
+    - gnupg
     - curl
     - make
     - cmake
     - git
-    - tmux
     - nginx
+    - virtualenv
+    - python3-pip
     - python3.11-venv
+    - python3-setuptools
 
 
-- name: Install TPM (TMux Plugin Manager)
-  ansible.builtin.git:
-    repo: https://github.com/tmux-plugins/tpm.git
-    dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
-  tags:
-    - skip_ansible_lint
+- name: Setup Docker
+  ansible.builtin.import_tasks: setup_docker.yml
 
 
-# or include_tasks
+- name: Setup Tmux
+  ansible.builtin.import_tasks: setup_tmux.yml
+
+
 - name: Setup NeoVim
   ansible.builtin.import_tasks: setup_nvim.yml
 

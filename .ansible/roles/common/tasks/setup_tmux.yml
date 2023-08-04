@@ -1,0 +1,13 @@
+- name: Install packages
+  ansible.builtin.package:
+    name: tmux
+    state: present
+  become: true
+
+
+- name: Install TPM (TMux Plugin Manager)
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm.git
+    dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+  tags:
+    - skip_ansible_lint

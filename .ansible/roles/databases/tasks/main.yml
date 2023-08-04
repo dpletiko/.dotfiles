@@ -1,12 +1,24 @@
 - name: Ensure '/docker' dir exists
+  become: true
   ansible.builtin.file:
     path: /docker
     state: directory
     mode: '0755'
 
 
-- include_tasks: database.yml
+- name: Ensure service is enabled
+  become: true
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+
+
+- name: Setup databases
+  ansible.builtin.include_tasks: database.yml
   loop: "{{ lookup('ansible.builtin.dict', databases) }}"
   loop_control:
     loop_var: database
 
+
+- name: Setup adminer
+  ansible.builtin.include_tasks: adminer.yml
