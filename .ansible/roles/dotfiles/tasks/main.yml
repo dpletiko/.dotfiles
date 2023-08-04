@@ -3,6 +3,7 @@
     repo: git@github.com:dpletiko/.dotfiles.git
     dest: ~/.dotfiles
     accept_hostkey: true
+    key_file: "{{ lookup(env, 'HOME') }}/.ssh/id_rsa"
   tags:
     - skip_ansible_lint
 
