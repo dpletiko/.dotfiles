@@ -4,7 +4,7 @@ services:
     adminer:
         image: {{ adminer.image }}
         restart: always
-{% if db.ports is defined %}
+{% if adminer.ports is defined %}
         ports:
             {{ adminer.ports | to_nice_yaml }}
 {% endif %}
