@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.5'
 
 services:
 {% for db in database.value %}
@@ -29,5 +29,6 @@ networks:
 {% for network in database.value | map(attribute='networks') | flatten | unique %}
     {{ network }}:
         name: {{ network }}
+        external: true
 {% endfor %}
 
