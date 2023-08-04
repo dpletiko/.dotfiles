@@ -6,12 +6,16 @@ php_versions:
   - 8.2
 
 php_extensions:
+  - cli
   - curl
+  - common
   - bcmath
   - gd
   - mbstring
+  - intl
   - zip
   - pgsql
+  - mysql
 
 
 node_versions:
