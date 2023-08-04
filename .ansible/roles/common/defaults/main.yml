@@ -11,6 +11,8 @@ php_extensions:
   - common
   - bcmath
   - gd
+  - dom
+  - xml
   - mbstring
   - intl
   - zip
@@ -20,3 +22,6 @@ php_extensions:
 
 node_versions:
   - node
+
+node_global_packages:
+  - yarn
