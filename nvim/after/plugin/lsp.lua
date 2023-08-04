@@ -12,14 +12,16 @@ nlspsettings.setup({
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-    'tsserver',
-    'eslint',
-    'lua_ls',
-    'rust_analyzer',
-    'intelephense',
-    --'vuels',
-    'volar',
-    'ansiblels'
+  'tsserver',
+  'eslint',
+  'lua_ls',
+  'rust_analyzer',
+  'intelephense',
+  --'vuels',
+  'volar',
+  'ansiblels',
+  'yamlls',
+  'docker_compose_language_service'
 })
 
 -- Configure tsserver
@@ -45,7 +47,7 @@ lsp.configure('ansiblels', {
     },
   },
 })
-
+--
 -- Configure intelephense
 lsp.configure('intelephense', {
     on_init = function(client)
