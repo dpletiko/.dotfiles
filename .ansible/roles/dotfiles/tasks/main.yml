@@ -1,7 +1,7 @@
 - name: Clone .dotfiles repository
   ansible.builtin.git:
     repo: git@github.com:dpletiko/.dotfiles.git
-    dest: ~/.dotfiles
+    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
     accept_hostkey: true
     key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
   tags:
