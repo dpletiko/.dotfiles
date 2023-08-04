@@ -1,3 +1,10 @@
+- name: Adding user '{{ lookup('env', 'USER') }}' to docker group
+  user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: docker
+    append: yes
+
+
 - name: Add Docker repository keyrings
   become: true
   ansible.builtin.shell: >
