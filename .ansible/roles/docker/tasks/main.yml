@@ -1,0 +1,80 @@
+- name: "Adding user to docker group | '{{ lookup('env', 'USER') }}'"
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: docker
+    append: true
+
+
+- name: Ensure docker.gpg exists
+  ansible.builtin.stat:
+    path: /etc/apt/keyrings/docker.gpg
+  register: docker_gpg
+
+
+- name: Setup docker.gpg
+  when:
+    - not docker_gpg.stat.exists
+  block:
+    - name: Download docker gpg
+      become: true
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/debian/gpg
+        dest: /etc/apt/keyrings/docker
+        mode: '0444'
+
+    - name: GPG dearmor docker gpg
+      become: true
+      ansible.builtin.command:
+        cmd: gpg --dearmor /etc/apt/keyrings/docker -o /etc/apt/keyrings/docker.gpg --yes
+      args:
+        creates: /etc/apt/keyrings/docker.gpg
+
+    - name: Set permissions for docker gpg
+      ansible.builtin.file:
+        dest: /etc/apt/keyrings/docker.gpg
+        mode: '0444'
+
+
+# - name: Add Docker repository keyrings
+#   become: true
+#   ansible.builtin.shell: >
+#     curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg --yes
+
+
+- name: Setting architecture fact
+  ansible.builtin.set_fact:
+    arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+
+
+- name: Add Docker repository to sources
+  become: true
+  ansible.builtin.apt_repository:
+    filename: docker
+    repo: 'deb [arch="{{ arch }}" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian/ {{ ansible_distribution_release }} stable'
+
+
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  become: true
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    # - docker-compose-plugin
+    # - python3-docker
+
+
+- name: Install Docker Module for Python
+  ansible.builtin.pip:
+    name: docker
+    virtualenv: "{{ lookup('env', 'HOME') }}/.local"

@@ -28,6 +28,7 @@
     name: 'php{{ item }}'
     state: present
   loop: '{{ php_versions }}'
+  tags: php:versions
 
 
 - name: Install PHP Extensions
@@ -36,6 +37,7 @@
     name: 'php{{ item.0 }}-{{ item.1 }}'
     state: present
   loop: "{{ php_versions | product(php_extensions) | list }}"
+  tags: php:ext
 
 
 - name: Downlad Composer
@@ -50,6 +52,7 @@
   args:
     chdir: /usr/local/bin
     creates: /usr/local/bin/composer
+  tags: php:composer
 
 #
 # - name: Install Composer

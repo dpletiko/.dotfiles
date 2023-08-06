@@ -2,6 +2,21 @@
   hosts: localhost
   connection: local
   roles:
-    - common
-    - dotfiles
-    - databases
+    - role: common
+      tags: common
+
+
+    - role: dotfiles
+      tags: dotfiles
+
+
+    - role: docker
+      tags: docker
+
+
+    - role: languages
+      tags: lang
+
+
+    - role: databases
+      tags: db

@@ -25,3 +25,8 @@ node_versions:
 
 node_global_packages:
   - yarn
+
+
+cargo_packages:
+  - cargo-watch
+  - diesel_cli
