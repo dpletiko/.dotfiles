@@ -1,0 +1,41 @@
+- name: "Ensures dir exists | /docker/adminer"
+  become: true
+  ansible.builtin.file:
+    path: "/docker/adminer"
+    state: directory
+    mode: '0755'
+
+
+- name: "Ensure docker-compose.yml exists | /docker/adminer/docker-compose.yml"
+  become: true
+  ansible.builtin.template:
+    src: docker-compose.adminer.yml.j2
+    dest: "/docker/adminer/docker-compose.yml"
+    mode: '0666'
+
+
+- name: "Start docker services | /docker/adminer"
+  ansible.builtin.command:
+    chdir: "/docker/adminer"
+    cmd: docker compose up -d
+  register: output
+
+
+# - name: "Deploy {{ database.key }}"
+#   become: true
+#   community.docker.docker_compose:
+#     project_src: "/docker/{{ database.key }}/"
+#     files:
+#       - docker-compose.yml
+#   register: output
+
+
+- name: Show results
+  ansible.builtin.debug:
+    var: output
+
+
+# - name: "Verify that {{ database.key }} services are running"
+#   ansible.builtin.assert:
+#     that:
+#       - "not output.services.db.flask_db_1.state.running"

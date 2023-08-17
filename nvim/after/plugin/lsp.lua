@@ -12,33 +12,42 @@ nlspsettings.setup({
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-    'tsserver',
-    'eslint',
-    -- 'sumneko_lua',
-    'lua_ls',
-    'rust_analyzer',
-    'intelephense',
-    --'vuels',
-    'volar'
+  'tsserver',
+  'eslint',
+  'lua_ls',
+  'rust_analyzer',
+  'intelephense',
+  --'vuels',
+  'volar',
+  'ansiblels',
+  'yamlls',
+  'docker_compose_language_service'
 })
 
--- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { 'vim' }
-        },
-        workspace = {
-          library = {
-            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-            [vim.fn.stdpath("config") .. "/lua"] = true,
-          },
-        },
+-- Configure tsserver
+lsp.configure('ansiblels', {
+  settings = {
+    ansible = {
+      ansible = {
+        path = "ansible"
+      },
+      executionEnvironment = {
+        enabled = false
+      },
+      python = {
+        interpreterPath = "python"
+      },
+      validation = {
+        enabled = true,
+        lint = {
+          enabled = true,
+          path = "ansible-lint"
+        }
       }
-    }
+    },
+  },
 })
-
+--
 -- Configure intelephense
 lsp.configure('intelephense', {
     on_init = function(client)

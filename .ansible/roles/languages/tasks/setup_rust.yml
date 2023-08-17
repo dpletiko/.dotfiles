@@ -1,0 +1,26 @@
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+
+- name: Check if cargo is installed
+  ansible.builtin.shell: command -v cargo
+  register: cargo_exists
+  ignore_errors: true
+
+
+- name: Install cargo
+  when: cargo_exists is failed
+  become: true
+  ansible.builtin.command:
+    cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.cargo/bin/cargo"
+
+
+- name: Install cargo packages
+  community.general.cargo:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ cargo_packages }}"

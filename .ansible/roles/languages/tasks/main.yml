@@ -1,0 +1,36 @@
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    # upgrade: "yes"
+    update_cache: true
+
+
+# - name: Install packages
+#   ansible.builtin.package:
+#     name: "{{ item }}"
+#     state: present
+#   become: true
+#   with_items:
+#     -
+
+
+# - name: "Setup lang"
+#   ansible.builtin.include_tasks: "setup_{{ item }}.yml"
+#   loop: "{{ languages | default([]) }}"
+#   when: languages | default([]) | length > 0
+#   tags: "lang:{{ item }}"
+
+
+- name: Setup NodeJS
+  ansible.builtin.import_tasks: setup_node.yml
+  tags: lang:nodejs
+
+
+- name: Setup PHP
+  ansible.builtin.include_tasks: setup_php.yml
+  tags: lang:php
+
+
+- name: Setup Rust
+  ansible.builtin.import_tasks: setup_rust.yml
+  tags: lang:rust

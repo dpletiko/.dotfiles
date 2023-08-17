@@ -1,0 +1,23 @@
+- name: Install NVM (Node Version Manager)
+  become: false
+  ansible.builtin.shell: >
+    set -o pipefail &&
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
+
+
+- name: Install NodeJS
+  # ansible.builtin.shell: "nvm install {{ node }}"
+  ansible.builtin.shell: ". {{ lookup('env', 'HOME') }}/.nvm/nvm.sh install {{ node }}"
+  become: false
+  loop: '{{ node_versions }}'
+  loop_control:
+    loop_var: node
+
+
+- name: Install NodeJS Global Packages
+  # ansible.builtin.shell: "nvm install {{ node }}"
+  ansible.builtin.shell: "npm install --global {{ item }}"
+  become: true
+  loop: '{{ node_global_packages }}'

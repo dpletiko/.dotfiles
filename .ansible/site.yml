@@ -1,0 +1,22 @@
+- name: Run Setup
+  hosts: localhost
+  connection: local
+  roles:
+    - role: common
+      tags: common
+
+
+    - role: dotfiles
+      tags: dotfiles
+
+
+    - role: docker
+      tags: docker
+
+
+    - role: languages
+      tags: lang
+
+
+    - role: databases
+      tags: db

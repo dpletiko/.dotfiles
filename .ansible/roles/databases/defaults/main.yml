@@ -1,0 +1,40 @@
+databases:
+  postgres:
+    - image: postgres:bookworm
+      environment:
+        POSTGRES_PASSWORD: example
+      volumes:
+        - ./data/bookwork:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+      networks:
+        - adminer
+
+    - image: postgres:13.11-bookworm
+      environment:
+        POSTGRES_PASSWORD: example
+      volumes:
+        - ./data/13.11:/var/lib/postgresql/data
+      ports:
+        - "5433:5432"
+      networks:
+        - adminer
+
+  mysql:
+    - image: mysql:debian
+      environment:
+        MYSQL_ROOT_PASSWORD: example
+      volumes:
+        - ./data/latest:/var/lib/postgresql/data
+      ports:
+        - "3306:3306"
+      networks:
+        - adminer
+
+
+adminer:
+  image: adminer
+  ports:
+    - 8080:8080
+  networks:
+    - adminer

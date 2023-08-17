@@ -1,0 +1,65 @@
+- name: Add SURY PHP PPA repository keyrings
+  become: true
+  ansible.builtin.get_url:
+    url: https://packages.sury.org/php/apt.gpg
+    dest: /etc/apt/trusted.gpg.d/php.gpg
+    mode: '0644'
+  # ansible.builtin.shell: >
+  #  wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+
+- name: Add SURY PHP PPA repository to sources
+  become: true
+  ansible.builtin.copy:
+    content: "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main"
+    dest: /etc/apt/sources.list.d/php.list
+    mode: '0644'
+  # ansible.builtin.shell: >
+  #   echo "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main" > /etc/apt/sources.list.d/php.list
+
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+
+- name: Install PHP
+  become: true
+  ansible.builtin.package:
+    name: 'php{{ item }}'
+    state: present
+  loop: '{{ php_versions }}'
+  tags: php:versions
+
+
+- name: Install PHP Extensions
+  become: true
+  ansible.builtin.package:
+    name: 'php{{ item.0 }}-{{ item.1 }}'
+    state: present
+  loop: "{{ php_versions | product(php_extensions) | list }}"
+  tags: php:ext
+
+
+- name: Downlad Composer
+  become: true
+  ansible.builtin.shell: |
+      php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      php -r "if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02') {
+        echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php');
+      } echo PHP_EOL;"
+      php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+      php -r "unlink('composer-setup.php');"
+  args:
+    chdir: /usr/local/bin
+    creates: /usr/local/bin/composer
+  tags: php:composer
+
+#
+# - name: Install Composer
+#   become: true
+#   ansible.builtin.command:
+#     cmd: php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+#   args:
+#     chdir: /usr/local/bin
+#     creates: /usr/local/bin/composer
+#

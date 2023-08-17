@@ -1,0 +1,43 @@
+- name: Print env HOME
+  ansible.builtin.debug:
+    msg: "{{ lookup('env', 'HOME') }}"
+
+
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    upgrade: "yes"
+    update_cache: true
+
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    # - lsb-release
+    - ca-certificates
+    - apt-transport-https
+    - software-properties-common
+    - gnupg
+    - curl
+    - make
+    - cmake
+    - git
+    - nginx
+    - virtualenv
+    - python3-pip
+    - python3.11-venv
+    - python3-setuptools
+    - libpq-dev
+    - libsqlite3-dev
+    - default-libmysqlclient-dev
+
+
+- name: Setup Tmux
+  ansible.builtin.import_tasks: setup_tmux.yml
+
+
+- name: Setup NeoVim
+  ansible.builtin.import_tasks: setup_nvim.yml

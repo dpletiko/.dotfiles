@@ -1,0 +1,42 @@
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - fuse
+    - libfuse2
+    - fd-find
+    - ripgrep
+
+
+- name: Install nvim.appimage
+  ansible.builtin.get_url:
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    dest: /usr/local/bin/nvim
+    mode: '0744'
+
+
+- name: NeoVim ~ Packer
+  ansible.builtin.git:
+    repo: https://github.com/wbthomason/packer.nvim
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    depth: 1
+
+
+- name: Symlink fdfind -> fd
+  ansible.builtin.file:
+    src: /usr/bin/fdfind
+    dest: "{{ lookup('env', 'HOME') }}/.local/bin/fd"
+    state: link
+
+
+# Handle better
+# - name: Download ripgrep
+#   ansible.builtin.get_url:
+#     url: https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+#     dest: /tmp
+#     mode: '0744'
+#
+# - name: Install ripgrep
+#   shell: sudo dpkg -i /tmp/ripgrep_13.0.0_amd64.deb

@@ -1,0 +1,27 @@
+# eval `ssh-agent -s`
+# ssh-add
+
+- name: Clone .dotfiles repository
+  ansible.builtin.git:
+    repo: git@github.com:dpletiko/.dotfiles.git
+    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    accept_hostkey: true
+    key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+  tags:
+    - skip_ansible_lint
+
+
+- name: Symlink tmux
+  ansible.builtin.file:
+    src: ~/.dotfiles/tmux/.tmux.conf
+    dest: ~/.tmux.conf
+    state: link
+
+
+- name: Symlink nvim
+  ansible.builtin.file:
+    src: ~/.dotfiles/nvim
+    dest: ~/.config/nvim
+    state: link
+
+# symlink i3?
