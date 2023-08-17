@@ -203,26 +203,14 @@ exec --no-startup-id /usr/bin/xset s off
 exec --no-startup-id /usr/bin/xset s noblank
 exec --no-startup-id /usr/bin/xset dpms 0 0 0
 
-
-exec --no-startup-id google-chrome
-exec --no-startup-id code
-#exec --no-startup-id slack
-exec --no-startup-id spotify
-exec --no-startup-id google-chrome --app-id=mdpkiolbdkhdjpekfbkbmhigcaggjagi --profile-directory="Profile 1"
-
-exec --no-startup-id i3-msg 'workspace $ws2; exec i3-sensible-terminal -e "tmux a"'
-
-
-
-
 # UserConf
 for_window [class="Yad"] floating enable
 for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws10
 
-assign [class="Google-chrome" instance="crx_mdpkiolbdkhdjpekfbkbmhigcaggjagi" title="Google Chat"] workspace $ws9
-assign [class="Google-chrome"] workspace $ws1
+#assign [class="Google-chrome" instance="crx_mdpkiolbdkhdjpekfbkbmhigcaggjagi" title="Google Chat"] workspace $ws9
+#assign [class="Google-chrome"] workspace $ws1
 assign [class="Code"] workspace $ws3
-assign [class="Slack"] workspace $ws9
+#assign [class="Slack"] workspace $ws9
 assign [class="^Spotify"] workspace $ws10
 
 
@@ -246,4 +234,22 @@ bindsym $mod+Print exec xfce4-screenshooter -r -s ~/Pictures/`date +%Y-%m-%d_%H:
 exec_always --no-startup-id xrandr --output DP-1 --auto --primary --rotate normal
 exec_always --no-startup-id xrandr --output DP-2 --auto --rotate left --left-of DP-1
 exec_always --no-startup-id xrandr --output DP-1 --pos 1080x317
+
+
+
+
+exec --no-startup-id "i3-msg 'workspace 1; append_layout /home/dpleti/.config/i3/ws/w1.json'"
+exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/dpleti/.config/i3/ws/w2.json'"
+exec --no-startup-id "i3-msg 'workspace 3; append_layout /home/dpleti/.config/i3/ws/w3.json'"
+exec --no-startup-id "i3-msg 'workspace 9; append_layout /home/dpleti/.config/i3/ws/w9.json'"
+exec --no-startup-id "i3-msg 'workspace 10; append_layout /home/dpleti/.config/i3/ws/w10.json'"
+
+
+exec --no-startup-id google-chrome
+exec --no-startup-id code
+exec --no-startup-id spotify
+exec --no-startup-id phpstorm
+exec --no-startup-id google-chrome --app-id=mdpkiolbdkhdjpekfbkbmhigcaggjagi --profile-directory="Profile 1"
+exec --no-startup-id i3-msg 'exec i3-sensible-terminal -e "tmux"'
+#exec --no-startup-id i3-msg 'workspace $ws2; exec i3-sensible-terminal -e "tmux has-session -t default && tmux attach -t default || tmux new -s default"'
 
