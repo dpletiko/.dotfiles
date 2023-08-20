@@ -25,7 +25,6 @@
     - make
     - cmake
     - git
-    - nginx
     - virtualenv
     - python3-pip
     - python3.11-venv

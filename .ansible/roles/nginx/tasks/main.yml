@@ -1,0 +1,103 @@
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - nginx
+    - libnss3-tools
+
+
+- name: Ensure /etc/ssl/csr directory exists
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: /etc/ssl/csr
+    mode: '0755'
+
+
+- name: Ensures .pki nssdb directory exists
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/.pki/nssdb"
+    state: directory
+    mode: "0700"
+
+
+- name: Check if localhost ssl keys exist
+  become: true
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  loop:
+    - /etc/ssl/csr/localhost.csr
+    - /etc/ssl/certs/localhost.crt
+    - /etc/ssl/private/localhost.pem
+  register: localhost_ssl_keys
+
+
+- name: Generates localhost .key|.crt
+  become: true
+  when: "localhost_ssl_keys.results | map(attribute='stat.exists') | reject('equalto', true) | length > 0"
+  block:
+    - name: Generate ssl private key
+      ansible.builtin.openssl_privatekey:
+        path: /etc/ssl/private/localhost.key
+        size: 2048
+
+    - name: Generate ssl csr
+      ansible.builtin.openssl_csr:
+        path: /etc/ssl/csr/localhost.csr
+        privatekey_path: /etc/ssl/private/localhost.key
+
+    - name: Generate ssl certificate
+      openssl_certificate:
+        provider: selfsigned
+        path: /etc/ssl/certs/localhost.crt
+        csr_path: /etc/ssl/csr/localhost.csr
+        privatekey_path: /etc/ssl/private/localhost.key
+
+
+#     - name: Generates localhost ssl key|crt
+#       become: true
+#       ansible.builtin.command:
+#         chdir: "{{ lookup('env', 'HOME') }}"
+#         creates:
+#           - localhost.crt
+#           - localhost.key
+#         cmd: >
+#           openssl req -x509 -out localhost.crt -keyout localhost.key \
+#             -newkey rsa:2048 -nodes -sha256 \
+#             -subj '/CN=localhost' -extensions EXT -config <( \
+#              printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+#
+#
+#     - name: Moves localhost.crt to /etc/ssl/certs
+#       ansible.builtin.copy:
+#         src: "{{ lookup('env', 'HOME') }}/localhost.crt"
+#         dest: /etc/ssl/certs/localhost.crt
+#         owner: root
+#         group: root
+#         mode: "0644"
+#
+#     - name: Removes local .crt copy
+#       ansible.builtin.file:
+#         path: "{{ lookup('env', 'HOME') }}/localhost.crt"
+#         state: absent
+#
+#     - name: Moves localhost.key to /etc/ssl/private
+#       ansible.builtin.copy:
+#         src: "{{ lookup('env', 'HOME') }}/localhost.crt"
+#         dest: /etc/ssl/private/localhost.crt
+#         owner: root
+#         group: root
+#         mode: "0640"
+#
+#     - name: Removes local .key copy
+#       ansible.builtin.file:
+#         path: "{{ lookup('env', 'HOME') }}/localhost.key"
+#         state: absent
