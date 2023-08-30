@@ -29,6 +29,7 @@ return packer.startup(function(use)
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("live_grep_args")
 			-- require("telescope").load_extension("dap")
+			require("telescope").load_extension("flutter")
 		end
 	}
 
@@ -86,9 +87,15 @@ return packer.startup(function(use)
 
 	use("folke/neodev.nvim")
 	use('mfussenegger/nvim-dap')
-	use({ "rcarriga/nvim-dap-ui", tag = 'v3.4.0', requires = {"mfussenegger/nvim-dap"} })
+	use({ "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} })
 
-	use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim'}
+	use {
+		'akinsho/flutter-tools.nvim',
+		requires = {
+			'nvim-lua/plenary.nvim',
+			'stevearc/dressing.nvim', -- optional for vim.ui.select
+		}
+	}
 
 	use("folke/zen-mode.nvim")
 	use("github/copilot.vim")
