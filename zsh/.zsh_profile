@@ -21,6 +21,12 @@ export DOTFILES=$HOME/.dotfiles
 # addToPathFront $HOME/personal/sumneko/bin
 # addToPathFront $HOME/.deno/bin
 
+path+=("$HOME/.local/bin")
+path+=("$HOME/.pub-cache/bin")
+
+source $DOTFILES/zsh/.aliases
+
+
 # Where should I put you?
 bindkey -s ^f "tmux-sessionizer\n"
 
