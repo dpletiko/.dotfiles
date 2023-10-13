@@ -13,7 +13,8 @@ require'nvim-treesitter.configs'.setup {
 	  "scss",
 	  "css",
       "vue",
-      "sql"
+      "sql",
+      "python"
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)

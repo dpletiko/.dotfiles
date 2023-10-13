@@ -21,7 +21,8 @@ lsp.ensure_installed({
   'volar',
   'ansiblels',
   'yamlls',
-  'docker_compose_language_service'
+  'docker_compose_language_service',
+  'pyright'
 })
 
 -- Configure tsserver
