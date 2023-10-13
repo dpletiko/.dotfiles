@@ -139,3 +139,10 @@ truncateMysqlDb() {
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# bun completions
+[ -s "/home/dpleti/.bun/_bun" ] && source "/home/dpleti/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
