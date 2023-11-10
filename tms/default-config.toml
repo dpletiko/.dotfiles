@@ -1,0 +1,7 @@
+search_paths = ['/home/dpleti/git']
+excluded_dirs = [
+    'node_modules/',
+    'vendor/',
+    'flutter_1226_bak/',
+    'themes/',
+]
