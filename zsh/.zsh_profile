@@ -11,6 +11,8 @@ export GIT_EDITOR=$VIM
 export DENO_INSTALL="$HOME/.deno"
 export DOTFILES=$HOME/.dotfiles
 
+export SUDO_EDITOR="nvim"
+
 # addToPathFront $HOME/.zig
 # addToPathFront $HOME/.local/.npm-global/bin
 # addToPathFront $HOME/.local/scripts
