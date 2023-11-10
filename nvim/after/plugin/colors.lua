@@ -1,9 +1,11 @@
 require('gruvbox').setup({
+    terminal_colors = true,
     undercurl = true,
     underline = true,
     bold = true,
     italic = {
         strings = true,
+        emphasis = true,
         comments = true,
         operators = false,
         folds = true,
@@ -18,7 +20,7 @@ require('gruvbox').setup({
     palette_overrides = {},
     overrides = {},
     dim_inactive = false,
-    transparent_mode = false,
+    transparent_mode = true,
 })
 
 function ColorMyPencils(color)
