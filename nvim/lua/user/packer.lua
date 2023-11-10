@@ -100,7 +100,7 @@ return packer.startup(function(use)
 	use("folke/zen-mode.nvim")
 	use("github/copilot.vim")
 
-	use("gruvbox-community/gruvbox")
+	-- use("gruvbox-community/gruvbox")
 	use("sainnhe/sonokai")
 
 	use('mortepau/codicons.nvim')
