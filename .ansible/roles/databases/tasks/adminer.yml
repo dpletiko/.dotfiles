@@ -1,7 +1,7 @@
 - name: "Ensures dir exists | ~/docker/adminer"
   become: true
   ansible.builtin.file:
-    path: "/docker/adminer"
+    path: "{{ lookup('env', 'HOME') }}/docker/adminer"
     state: directory
     mode: '0755'
 
