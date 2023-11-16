@@ -1,8 +1,16 @@
+- name: "Ensure 'docker' group exists"
+  ansible.builtin.group:
+    name: docker
+    state: present
+  become: true
+
+
 - name: "Adding user to docker group | '{{ lookup('env', 'USER') }}'"
   ansible.builtin.user:
     name: "{{ lookup('env', 'USER') }}"
     groups: docker
     append: true
+  become: true
 
 
 - name: Ensure docker.gpg exists
@@ -25,7 +33,7 @@
     - name: GPG dearmor docker gpg
       become: true
       ansible.builtin.command:
-        cmd: gpg --dearmor /etc/apt/keyrings/docker -o /etc/apt/keyrings/docker.gpg --yes
+        cmd: gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg /etc/apt/keyrings/docker
       args:
         creates: /etc/apt/keyrings/docker.gpg
 
