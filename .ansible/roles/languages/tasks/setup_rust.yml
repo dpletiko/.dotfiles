@@ -12,15 +12,28 @@
 
 - name: Install cargo
   when: cargo_exists is failed
-  become: true
-  ansible.builtin.command:
-    cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  # become: true
+  ansible.builtin.shell: >
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   args:
     creates: "{{ lookup('env', 'HOME') }}/.cargo/bin/cargo"
 
 
+- name: Source cargo env
+  # when: cargo_exists is true
+  ansible.builtin.shell: ". {{ lookup('env', 'HOME') }}/.cargo/env"
+
+
+- name: Rustup source stable
+  ansible.builtin.shell: "source {{ lookup('env', 'HOME') }}/.bashrc && rustup default stable"
+  args: 
+    executable: /bin/bash
+
+
 - name: Install cargo packages
+  # when: cargo_exists is true
   community.general.cargo:
     name: "{{ item }}"
     state: present
+    executable: "{{ lookup('env', 'HOME') }}/.cargo/bin/cargo"
   with_items: "{{ cargo_packages }}"

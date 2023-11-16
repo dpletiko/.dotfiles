@@ -22,6 +22,10 @@ php_extensions:
 
 node_versions:
   - node
+  - lts/gallium
+  - lts/hydrogen
+  - lts/*
+
 
 node_global_packages:
   - yarn
