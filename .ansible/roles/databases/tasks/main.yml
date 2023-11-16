@@ -1,7 +1,7 @@
-- name: Ensure '/docker' dir exists
+- name: Ensure '~/docker' dir exists
   become: true
   ansible.builtin.file:
-    path: /docker
+    path: "{{ lookup('env', 'HOME') }}/docker"
     state: directory
     mode: '0755'
 

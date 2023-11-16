@@ -1,4 +1,4 @@
-- name: "Ensures dir exists | /docker/adminer"
+- name: "Ensures dir exists | ~/docker/adminer"
   become: true
   ansible.builtin.file:
     path: "/docker/adminer"
@@ -6,17 +6,17 @@
     mode: '0755'
 
 
-- name: "Ensure docker-compose.yml exists | /docker/adminer/docker-compose.yml"
+- name: "Ensure docker-compose.yml exists | ~/docker/adminer/docker-compose.yml"
   become: true
   ansible.builtin.template:
     src: docker-compose.adminer.yml.j2
-    dest: "/docker/adminer/docker-compose.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker/adminer/docker-compose.yml"
     mode: '0666'
 
 
-- name: "Start docker services | /docker/adminer"
+- name: "Start docker services | ~/docker/adminer"
   ansible.builtin.command:
-    chdir: "/docker/adminer"
+    chdir: "{{ lookup('env', 'HOME')}}/docker/adminer"
     cmd: docker compose up -d
   register: output
 
