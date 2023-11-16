@@ -18,6 +18,7 @@
   ansible.builtin.command:
     chdir: "{{ lookup('env', 'HOME')}}/docker/adminer"
     cmd: docker compose up -d
+  become: true
   register: output
 
 
