@@ -9,147 +9,159 @@ nlspsettings.setup({
   loader = 'json'
 })
 
-lsp.preset("recommended")
 
-lsp.ensure_installed({
-  'tsserver',
-  'eslint',
-  'lua_ls',
-  'rust_analyzer',
-  'intelephense',
-  --'vuels',
-  'volar',
-  'ansiblels',
-  'yamlls',
-  'docker_compose_language_service',
-  'pyright'
-})
-
--- Configure tsserver
-lsp.configure('ansiblels', {
-  settings = {
-    ansible = {
-      ansible = {
-        path = "ansible"
-      },
-      executionEnvironment = {
-        enabled = false
-      },
-      python = {
-        interpreterPath = "python"
-      },
-      validation = {
-        enabled = true,
-        lint = {
-          enabled = true,
-          path = "ansible-lint"
-        }
-      }
-    },
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {
+    'tsserver',
+    'eslint',
+    'lua_ls',
+    'rust_analyzer',
+    'intelephense',
+    --'vuels',
+    'volar',
+    'ansiblels',
+    'yamlls',
+    'docker_compose_language_service',
+    'pyright'
   },
-})
---
--- Configure intelephense
-lsp.configure('intelephense', {
-    on_init = function(client)
+  handlers = {
+    lsp.default_setup,
 
-    end,
-    settings = {
-      intelephense = {
-        files = {
-          maxSize = 10000000
+    ansiblels = function()
+      require('lspconfig').ansiblels.setup({
+        settings = {
+          ansible = {
+            ansible = {
+              path = "ansible"
+            },
+            executionEnvironment = {
+              enabled = false
+            },
+            python = {
+              interpreterPath = "python"
+            },
+            validation = {
+              enabled = true,
+              lint = {
+                enabled = true,
+                path = "ansible-lint"
+              }
+            }
+          },
         },
+      })
+    end,
+
+    intelephense = function()
+      require('lspconfig').intelephense.setup({
+        settings = {
+          intelephense = {
+            files = {
+              maxSize = 10000000
+            },
 --        root_dir = require('lspconfig.util').root_pattern('composer.json', '.git'),
 --         environment = {
 --           phpVersion = "7.3"
 --         }
-      }
-    }
+          }
+        },
+      })
+    end,
+
+    tsserver = function()
+      require('lspconfig').tsserver.setup({
+        detached = false,
+        settings = {
+          documentFormatting = true
+        },
+      })
+    end,
+
+    volar = function()
+      require('lspconfig').volar.setup({
+        detached = false,
+        filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
+        -- filetypes = {'vue'},
+        settings = {
+          volar = {
+
+          }
+        }
+      })
+    end,
+
+    -- dartls = function()
+    --   require('lspconfig').dartls.setup({
+    --     force_setup = true,
+    --     on_attach = function()
+    --       print('hello dartls')
+    --     end,
+    --     cmd = { 'dart',  '/home/dpleti/git/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp' },
+    --     default_config = {
+    --       cmd = { 'dart',  '/home/dpleti/git/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp' },
+    --       filetypes = { 'dart' },
+    --       root_dir = require('lspconfig.util').root_pattern 'pubspec.yaml',
+    --       init_options = {
+    --         onlyAnalyzeProjectsWithOpenFiles = true,
+    --         suggestFromUnimportedLibraries = true,
+    --         closingLabels = true,
+    --         outline = true,
+    --         flutterOutline = true,
+    --       },
+    --       settings = {
+    --         dart = {
+    --           completeFunctionCalls = true,
+    --           showTodos = true,
+    --         },
+    --       },
+    --     },
+    --     docs = {
+    --       description = [[
+    --         https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server/tool/lsp_spec
+    --         Language server for dart.
+    --       ]],
+    --       default_config = {
+    --         root_dir = [[root_pattern("pubspec.yaml")]],
+    --       },
+    --     },
+    --   })
+    -- end,
+
+    -- vuels = function()
+    --   require('lspconfig').vuels.setup({
+    --     settings = {
+    --       vetur = {
+    --         ignoreProjectWarning = true,
+    --
+    --         completion = {
+    --           autoImport = true,
+    --           useScaffoldSnippets = true
+    --         },
+    --         format = {
+    --           defaultFormatter = {
+    --             html = "none",
+    --             js = "prettier",
+    --             ts = "prettier",
+    --           }
+    --         },
+    --         validation = {
+    --           template = true,
+    --           script = true,
+    --           style = true,
+    --           templateProps = true,
+    --           interpolation = true
+    --         },
+    --         experimental = {
+    --           templateInterpolationService = true
+    --         }
+    --       },
+    --     }
+    --   })
+    -- end,
+  },
 })
 
--- Configure tsserver
-lsp.configure('tsserver', {
-    detached = false,
-    settings = {
-      documentFormatting = true
-    },
-})
-
--- lsp.configure('dartls', {
---   force_setup = true,
---   on_attach = function()
---     print('hello dartls')
---   end,
---   cmd = { 'dart',  '/home/dpleti/git/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp' },
---   default_config = {
---     cmd = { 'dart',  '/home/dpleti/git/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp' },
---     filetypes = { 'dart' },
---     root_dir = require('lspconfig.util').root_pattern 'pubspec.yaml',
---     init_options = {
---       onlyAnalyzeProjectsWithOpenFiles = true,
---       suggestFromUnimportedLibraries = true,
---       closingLabels = true,
---       outline = true,
---       flutterOutline = true,
---     },
---     settings = {
---       dart = {
---         completeFunctionCalls = true,
---         showTodos = true,
---       },
---     },
---   },
---   docs = {
---     description = [[
--- https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server/tool/lsp_spec
--- Language server for dart.
--- ]],
---     default_config = {
---       root_dir = [[root_pattern("pubspec.yaml")]],
---     },
---   },
--- })
-
--- Configure vue
--- lsp.configure('vuels', {
---     settings = {
---       vetur = {
---         ignoreProjectWarning = true,
---
---         completion = {
---           autoImport = true,
---           useScaffoldSnippets = true
---         },
---         format = {
---           defaultFormatter = {
---             html = "none",
---             js = "prettier",
---             ts = "prettier",
---           }
---         },
---         validation = {
---           template = true,
---           script = true,
---           style = true,
---           templateProps = true,
---           interpolation = true
---         },
---         experimental = {
---           templateInterpolationService = true
---         }
---       },
---     }
--- })
-lsp.configure('volar', {
-    detached = false,
-    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
-    -- filetypes = {'vue'},
-    settings = {
-      volar = {
-
-      }
-    }
-})
 
 -- local has_words_before = function()
 --     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -159,7 +171,13 @@ lsp.configure('volar', {
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
+
+cmp.setup({
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered()
+  },
+  mapping = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
@@ -193,6 +211,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
         fallback()
       end
     end, {'i', 's'}),
+
+  })
 })
 
 -- disable completion with tab
@@ -200,9 +220,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 -- cmp_mappings['<Tab>'] = nil
 -- cmp_mappings['<S-Tab>'] = nil
 
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
-})
 
 lsp.set_preferences({
     suggest_lsp_servers = false,
@@ -215,7 +232,7 @@ lsp.set_preferences({
 })
 
 lsp.on_attach(function(client, bufnr)
-  local opts = {buffer = bufnr, remap = false}
+  local opts = {buffer = bufnr}
 
   -- if client.name == "eslint" then
   --   vim.cmd.LspStop('eslint')
@@ -243,6 +260,9 @@ lsp.on_attach(function(client, bufnr)
     vim.lsp.buf.format({ async = true })
   end, opts)
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+
+
+  -- lsp.default_keymaps({buffer = bufnr})
 end)
 
 lsp.setup()
