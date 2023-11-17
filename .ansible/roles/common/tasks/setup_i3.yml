@@ -15,7 +15,7 @@
 
 - name: Clone i3blocks-contrib
   ansible.builtin.git:
-    repo: git@github.com:vivien/i3blocks-contrib.git
+    repo: https://github.com/vivien/i3blocks-contrib.git
     dest: "{{ lookup('env', 'HOME') }}/.config/i3blocks"
     accept_hostkey: true
     key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
