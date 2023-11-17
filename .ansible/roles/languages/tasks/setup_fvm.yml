@@ -1,0 +1,30 @@
+- name: System update
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+
+- name: Downlad and Install Brew
+  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+
+- name: Brew tap fvm
+  community.general.homebrew_tap:
+    name: leoafarias/homebrew-fvm
+
+
+- name: Brew install fvm
+  community.general.homebrew:
+    update_homebrew: true
+    name: fvm
+    state: present
+
+
+- name: FVM install flutter
+  ansible.builtin.shell: "fvm install {{ item }}"
+  loop: '{{ flutter_versions }}'
+  tags: flutter:versions
+
+
+- name: FVM set global flutter
+  ansible.builtin.shell: "fvm global stable"

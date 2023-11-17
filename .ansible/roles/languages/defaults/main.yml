@@ -34,3 +34,9 @@ node_global_packages:
 cargo_packages:
   - cargo-watch
   - diesel_cli
+
+
+flutter_versions:
+  - 1.22.6
+  - 3.16.0
+  - stable

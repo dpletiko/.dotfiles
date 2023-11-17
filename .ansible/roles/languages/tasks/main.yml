@@ -34,3 +34,8 @@
 - name: Setup Rust
   ansible.builtin.import_tasks: setup_rust.yml
   tags: lang:rust
+
+
+- name: Setup FVM
+  ansible.builtin.import_tasks: setup_fvm.yml
+  tags: lang:fvm
