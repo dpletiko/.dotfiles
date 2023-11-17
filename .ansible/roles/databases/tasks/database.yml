@@ -19,6 +19,7 @@
   ansible.builtin.command:
     chdir: "{{ lookup('env', 'HOME') }}/docker/{{ database.key }}"
     cmd: docker compose up -d
+  become: true
   register: output
 
 
