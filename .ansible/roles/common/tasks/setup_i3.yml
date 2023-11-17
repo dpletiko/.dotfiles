@@ -6,3 +6,4 @@
   with_items:
     - i3
     - i3lock
+    - i3blocks

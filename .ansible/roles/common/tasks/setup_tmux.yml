@@ -1,3 +1,6 @@
+# ln -s .tmux.conf
+# prefix + I >> install plugins
+
 - name: Install packages
   ansible.builtin.package:
     name: tmux
