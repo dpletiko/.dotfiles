@@ -36,7 +36,20 @@
 
 - name: Setup Tmux
   ansible.builtin.import_tasks: setup_tmux.yml
+  tags: "common:tmux"
 
 
 - name: Setup NeoVim
   ansible.builtin.import_tasks: setup_nvim.yml
+  tags: "common:nvim"
+
+
+- name: Setup i3
+  ansible.builtin.import_tasks: setup_i3.yml
+  tags: "common:i3"
+
+
+- name: Setup zsh
+  ansible.builtin.import_tasks: setup_zsh.yml
+  tags: "common:zsh"
+

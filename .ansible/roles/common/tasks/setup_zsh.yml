@@ -1,0 +1,16 @@
+# zsh - start new shell
+# chsh -s /bin/zsh
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - zsh
+    - zplug
+
+
+- name: Setup oh-my-zsh
+  ansible.builtin.shell: sh -c "$(curl -fsSl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  become: false
