@@ -1,3 +1,7 @@
+# eval `ssh-agent -s`
+# ssh-add
+
+
 - name: Install packages
   ansible.builtin.package:
     name: "{{ item }}"
@@ -7,3 +11,21 @@
     - i3
     - i3lock
     - i3blocks
+
+
+- name: Clone i3blocks-contrib
+  ansible.builtin.git:
+    repo: git@github.com:vivien/i3blocks-contrib.git
+    dest: "{{ lookup('env', 'HOME') }}/.config/i3blocks"
+    accept_hostkey: true
+    key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+  tags:
+    - skip_ansible_lint
+
+
+- name: Symlink i3
+  ansible.builtin.file:
+    src: ~/.dotfiles/i3
+    dest: ~/.config/i3
+    state: link
+
