@@ -9,6 +9,7 @@
 
 
 - name: Install TPM (TMux Plugin Manager)
+  become: true
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm.git
     dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"

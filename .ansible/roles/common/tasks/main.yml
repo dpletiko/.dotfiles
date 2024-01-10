@@ -25,13 +25,21 @@
     - make
     - cmake
     - git
+    - libpq-dev
+    - libsqlite3-dev
+    - default-libmysqlclient-dev
+
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: false
+  with_items:
     - virtualenv
     - python3-pip
     - python3.11-venv
     - python3-setuptools
-    - libpq-dev
-    - libsqlite3-dev
-    - default-libmysqlclient-dev
 
 
 - name: Setup Tmux

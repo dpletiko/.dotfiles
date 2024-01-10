@@ -11,10 +11,11 @@
 
 
 - name: Install nvim.appimage
+  become: true
   ansible.builtin.get_url:
     url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
     dest: /usr/local/bin/nvim
-    mode: '0744'
+    mode: '0777'
 
 
 - name: NeoVim ~ Packer
