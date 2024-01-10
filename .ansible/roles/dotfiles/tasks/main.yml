@@ -24,4 +24,19 @@
     dest: ~/.config/nvim
     state: link
 
-# symlink i3?
+
+- name: Symlink i3
+  ansible.builtin.file:
+    src: ~/.dotfiles/i3
+    dest: ~/.config/i3
+    state: link
+
+
+- name: Symlink i3blocks
+  ansible.builtin.file:
+    src: ~/.dotfiles/i3blocks/calendar
+    dest: ~/.config/i3blocks/calendar/calendar
+    state: link
+    force: true
+
+

@@ -21,11 +21,3 @@
     key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
   tags:
     - skip_ansible_lint
-
-
-- name: Symlink i3
-  ansible.builtin.file:
-    src: ~/.dotfiles/i3
-    dest: ~/.config/i3
-    state: link
-
