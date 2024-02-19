@@ -26,7 +26,7 @@
 
 - name: Rustup source stable
   ansible.builtin.shell: "source {{ lookup('env', 'HOME') }}/.bashrc && rustup default stable"
-  args: 
+  args:
     executable: /bin/bash
 
 
@@ -35,5 +35,5 @@
   community.general.cargo:
     name: "{{ item }}"
     state: present
-    executable: "{{ lookup('env', 'HOME') }}/.cargo/bin/cargo"
+    # executable: "{{ lookup('env', 'HOME') }}/.cargo/bin/cargo"
   with_items: "{{ cargo_packages }}"

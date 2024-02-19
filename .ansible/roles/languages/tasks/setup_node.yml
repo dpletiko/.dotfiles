@@ -24,7 +24,7 @@
 - name: Install NodeJS Global Packages
   # ansible.builtin.shell: "nvm install {{ node }}"
   ansible.builtin.shell: "npm install --global {{ item }}"
-  # become: true
+  become: true
   loop: '{{ node_global_packages }}'
   args:
     executable: /bin/bash

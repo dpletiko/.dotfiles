@@ -4,8 +4,8 @@
     update_cache: true
 
 
-- name: Downlad and Install Brew
-  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# - name: Downlad and Install Brew
+  # ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 
 - name: Brew tap fvm
