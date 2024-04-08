@@ -87,8 +87,14 @@ return packer.startup(function(use)
 
 
 	use("folke/neodev.nvim")
-	use('mfussenegger/nvim-dap')
-	use({ "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} })
+	-- use('mfussenegger/nvim-dap')
+	use {
+		"rcarriga/nvim-dap-ui",
+		requires = {
+			{"mfussenegger/nvim-dap"},
+			{"nvim-neotest/nvim-nio"},
+		}
+	}
 
 	use {
 		'akinsho/flutter-tools.nvim',
