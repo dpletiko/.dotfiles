@@ -47,7 +47,7 @@ return packer.startup(function(use)
 	-- Snippets are separated from the engine. Add this if you want them:
 	-- use("honza/vim-snippets")
 
-	use("mattn/emmet-vim")
+	-- use("mattn/emmet-vim")
 	use("jwalton512/vim-blade")
 	use("sheerun/vim-polyglot")
 
@@ -55,8 +55,15 @@ return packer.startup(function(use)
 	use {
 		'numToStr/Comment.nvim',
 		config = function()
-			require('Comment').setup()
-		end
+			require('Comment').setup {
+				pre_hook = function()
+				  return vim.bo.commentstring
+				end,
+			}
+		end,
+		requires = {
+			'JoosepAlviste/nvim-ts-context-commentstring',
+		}
 	}
 
 	use {
@@ -105,7 +112,7 @@ return packer.startup(function(use)
 	}
 
 	use("folke/zen-mode.nvim")
-	use("github/copilot.vim")
+	-- use("github/copilot.vim")
 
 	-- use("gruvbox-community/gruvbox")
 	use("sainnhe/sonokai")

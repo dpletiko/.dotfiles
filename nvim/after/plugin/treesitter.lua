@@ -36,6 +36,11 @@ require'nvim-treesitter.configs'.setup {
   },
   indent = {
     enable = true
-  }
+  },
+
+  ts_context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
+  },
 }
 

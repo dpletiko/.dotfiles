@@ -10,6 +10,14 @@ nlspsettings.setup({
 })
 
 
+local cmp_lsp = require('cmp_nvim_lsp')
+local capabilities = vim.tbl_deep_extend(
+  "force",
+  {},
+  vim.lsp.protocol.make_client_capabilities(),
+  cmp_lsp.default_capabilities()
+)
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {
@@ -23,10 +31,18 @@ require('mason-lspconfig').setup({
     'ansiblels',
     'yamlls',
     'docker_compose_language_service',
-    'pyright'
+    'pyright',
+    'emmet_ls',
   },
   handlers = {
     lsp.default_setup,
+
+    -- function(server_name) -- default handler (optional)
+    --
+    --   require("lspconfig")[server_name].setup {
+    --     capabilities = capabilities
+    --   }
+    -- end,
 
     ansiblels = function()
       require('lspconfig').ansiblels.setup({
@@ -70,8 +86,26 @@ require('mason-lspconfig').setup({
     end,
 
     tsserver = function()
+      local vue_ts_plugin = require('mason-registry')
+        .get_package('vue-language-server')
+        :get_install_path()
+      .. '/node_modules/@vue/language-server'
+      .. '/node_modules/@vue/typescript-plugin'
+
       require('lspconfig').tsserver.setup({
-        detached = false,
+        -- detached = false,
+        init_options = {
+          plugins = {
+            {
+              name = '@vue/typescript-plugin',
+              location = vue_ts_plugin,
+              -- location = '/home/dpleti/.nvm/versions/node/v21.5.0/lib/node_modules/@vue/typescript-plugin',
+              -- languages = { 'typescript', 'javascript', 'vue' },
+              languages = { 'vue' },
+            },
+          },
+        },
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
         settings = {
           documentFormatting = true
         },
@@ -80,13 +114,33 @@ require('mason-lspconfig').setup({
 
     volar = function()
       require('lspconfig').volar.setup({
-        detached = false,
-        filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
-        -- filetypes = {'vue'},
-        settings = {
-          volar = {
+        -- detached = false,
+        -- filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
+        -- init_options = {
+        --   vue = {
+        --     hybridMode = false,
+        --   },
+        -- },
+        -- settings = {
+        --   volar = {
+        --
+        --   }
+        -- }
+      })
+    end,
 
-          }
+    emmet_ls = function()
+      require('lspconfig').emmet_ls.setup({
+        -- on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+        init_options = {
+          html = {
+            options = {
+              -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+              ["bem.enabled"] = true,
+            },
+          },
         }
       })
     end,
@@ -177,10 +231,15 @@ cmp.setup({
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered()
   },
+  -- snippet = {
+  --   expand = function(args)
+  --     require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+  --   end,
+  -- },
   mapping = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-y>'] = cmp.mapping.confirm({ select = false }),
     ["<C-Space>"] = cmp.mapping.complete(),
 
     -- go to next placeholder in the snippet
@@ -212,7 +271,13 @@ cmp.setup({
       end
     end, {'i', 's'}),
 
-  })
+  }),
+  -- sources = cmp.config.sources({
+  --   { name = 'nvim_lsp' },
+  --   { name = 'luasnip' }, -- For luasnip users.
+  -- }, {
+  --   { name = 'buffer' },
+  -- })
 })
 
 -- disable completion with tab
