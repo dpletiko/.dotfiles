@@ -3,6 +3,7 @@
   ansible.builtin.apt:
     # upgrade: "yes"
     update_cache: true
+  tags: always
 
 
 # - name: Install packages
@@ -29,6 +30,9 @@
 - name: Setup PHP
   ansible.builtin.include_tasks: setup_php.yml
   tags: lang:php
+  args:
+    apply:
+      tags: lang:php
 
 
 - name: Setup Rust
