@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+usage="$(basename "$0") [-h] [-l list] [-v version] -- script to switch PHP versions
+
+where:
+    -h  show this help text
+    -l  show installed and available versions
+    -v  set the PHP version (default: 8.3)"
+
+OPTIND=1         # Reset in case getopts has been used previously in the shell.
+
+while getopts "hl?v:" opt; do
+    case "$opt" in
+        h|\?)
+            echo "$usage"
+            exit 0
+            ;;
+
+        l)  echo "$(ls -l /usr/bin | awk '$0 ~ /php[0-9]/ {sub(/^php/, "", $9); print $9}')"
+            exit 0
+            ;;
+
+        v)  version=$OPTARG
+            ;;
+
+        :)  printf "missing argument for -%v\n" "$OPTARG" >&2
+            echo "$usage" >&2
+            exit 1
+            ;;
+
+       \?)  printf "illegal option: -%s\n" "$OPTARG" >&2
+            echo "$usage" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Check if any positional arguments remain
+if [[ $# -eq 0 ]]; then
+    echo "$usage"
+    exit 1
+fi
+
+shift $((OPTIND-1))
+
+[ "${1:-}" = "--" ] && shift
+
+echo "Selected PHP Version = $version"
+
+
+sudo update-alternatives --set php /usr/bin/php$version
+sudo update-alternatives --set phar /usr/bin/phar$version
+sudo update-alternatives --set phar.phar /usr/bin/phar.phar$version
+sudo update-alternatives --set phpize /usr/bin/phpize$version
+sudo update-alternatives --set php-config /usr/bin/php-config$version
