@@ -1,0 +1,15 @@
+display_full_path = true
+excluded_dirs = [
+    "node_modules",
+    "vendor",
+    "flutter_1226_bak",
+    "themes",
+]
+
+[[search_dirs]]
+path = "/home/dpleti/git"
+depth = 10
+
+#[[search_dirs]]
+#path = "/home/dpleti/docker"
+#depth = 10
