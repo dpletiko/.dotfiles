@@ -40,6 +40,7 @@ return packer.startup(function(use)
 	use('theprimeagen/harpoon')
 	use('mbbill/undotree')
 	use('tpope/vim-fugitive')
+	use('tpope/vim-surround')
 
 
 	-- Track the engine.
