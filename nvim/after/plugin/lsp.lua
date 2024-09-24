@@ -21,7 +21,7 @@ local capabilities = vim.tbl_deep_extend(
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {
-    'tsserver',
+    'ts_ls',
     'eslint',
     'lua_ls',
     'rust_analyzer',
@@ -85,14 +85,14 @@ require('mason-lspconfig').setup({
       })
     end,
 
-    tsserver = function()
+    ts_ls = function()
       local vue_ts_plugin = require('mason-registry')
         .get_package('vue-language-server')
         :get_install_path()
       .. '/node_modules/@vue/language-server'
       .. '/node_modules/@vue/typescript-plugin'
 
-      require('lspconfig').tsserver.setup({
+      require('lspconfig').ts_ls.setup({
         -- detached = false,
         init_options = {
           plugins = {
@@ -145,6 +145,12 @@ require('mason-lspconfig').setup({
       })
     end,
 
+    rust_analyzer = function()
+      require('lspconfig').rust_analyzer.setup({
+        -- on_attach = on_attach,
+        capabilities = capabilities,
+      })
+    end,
     -- dartls = function()
     --   require('lspconfig').dartls.setup({
     --     force_setup = true,
