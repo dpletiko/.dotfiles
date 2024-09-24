@@ -148,3 +148,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/dpleti/.config/.dart-cli-completion/zsh-config.zsh ]] && . /home/dpleti/.config/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
