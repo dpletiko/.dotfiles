@@ -197,7 +197,7 @@ bar {
 
 
 # Startup
-exec "xautolock -detectsleep -time 3 -corners 0-0- -locker \"~/.config/i3/lock.sh\""
+exec "xautolock -detectsleep -time 3 -corners '++--' -cornerdelay 5 -locker \"~/.config/i3/lock.sh\""
 exec --no-startup-id /usr/bin/xset s 0
 exec --no-startup-id /usr/bin/xset s off
 exec --no-startup-id /usr/bin/xset s noblank
@@ -210,6 +210,7 @@ for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws10
 #assign [class="Google-chrome" instance="crx_mdpkiolbdkhdjpekfbkbmhigcaggjagi" title="Google Chat"] workspace $ws9
 #assign [class="Google-chrome"] workspace $ws1
 assign [class="Code"] workspace $ws3
+assign [class="jetbrains-phpstorm"] workspace $ws3
 #assign [class="Slack"] workspace $ws9
 assign [class="^Spotify"] workspace $ws10
 
