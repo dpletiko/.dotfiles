@@ -7,6 +7,9 @@ VIM="nvim"
 #     source $i
 # done
 
+export LD_LIBRARY_PATH=/home/dpleti/Documents/onnxruntime-linux-x64-1.18-0/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+
 export GIT_EDITOR=$VIM
 export DENO_INSTALL="$HOME/.deno"
 export DOTFILES=$HOME/.dotfiles
@@ -23,11 +26,13 @@ export SUDO_EDITOR="nvim"
 # addToPathFront $HOME/personal/sumneko/bin
 # addToPathFront $HOME/.deno/bin
 
+path+=("$HOME/.dotfiles/.local/bin")
 path+=("$HOME/.local/bin")
 path+=("$HOME/.pub-cache/bin")
 path+=("$HOME/fvm/default/bin")
 
 source $DOTFILES/zsh/.aliases
+source $DOTFILES/zsh/.zsh_ssh
 
 
 # Where should I put you?
