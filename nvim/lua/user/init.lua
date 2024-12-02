@@ -30,6 +30,11 @@ autocmd({"BufWritePre"}, {
 })
 
 
+vim.g.node_host_prog = '~/.nvm/versions/node/v21.2.0/lib/node_modules'
+vim.g.copilot_node_command = '~/.nvm/versions/node/v21.2.0/bin/node'
+
+
+-- vim.g.netrw_keepdir = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 -- vim.g.netrw_liststyle = 3

@@ -54,17 +54,38 @@ return packer.startup(function(use)
 
 	-- use("tpope/vim-commentary")
 	use {
+		'JoosepAlviste/nvim-ts-context-commentstring',
+		config = function()
+			require('ts_context_commentstring').setup {
+			  enable_autocmd = false,
+			}
+		end,
+	}
+	use {
 		'numToStr/Comment.nvim',
 		config = function()
 			require('Comment').setup {
-				pre_hook = function()
-				  return vim.bo.commentstring
-				end,
+				toggler = {
+					line = 'gcc',     -- Line-comment toggle key
+					block = 'gbc',    -- Block-comment toggle key
+				},
+				opleader = {
+					line = 'gc',      -- Operator-pending line-comment toggle key
+					block = 'gb',     -- Operator-pending block-comment toggle key
+				},
+				mappings = {
+					basic = true,     -- Basic keymaps like `gcc` and `gbc`
+					extra = true,    -- Extra mappings like `gco`, `gcO`, `gcA`
+				},
+				pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+				-- pre_hook = function()
+				--   return vim.bo.commentstring
+				-- end,
 			}
 		end,
-		requires = {
-			'JoosepAlviste/nvim-ts-context-commentstring',
-		}
+		-- requires = {
+		-- 	'JoosepAlviste/nvim-ts-context-commentstring',
+		-- }
 	}
 
 	use {
