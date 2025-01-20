@@ -18,6 +18,8 @@ local capabilities = vim.tbl_deep_extend(
   cmp_lsp.default_capabilities()
 )
 
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {
@@ -33,6 +35,7 @@ require('mason-lspconfig').setup({
     'docker_compose_language_service',
     'pyright',
     'emmet_ls',
+    -- 'emmet_language_server'
   },
   handlers = {
     lsp.default_setup,
@@ -141,7 +144,7 @@ require('mason-lspconfig').setup({
       require('lspconfig').emmet_ls.setup({
         -- on_attach = on_attach,
         capabilities = capabilities,
-        filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+        filetypes = { "css", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue", "typescriptvue" },
         init_options = {
           html = {
             options = {
@@ -253,11 +256,12 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = false }),
+    -- ['<C-y>'] = cmp.mapping.confirm({ select = false }),
+    ['<C-y>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })),
     ["<C-Space>"] = cmp.mapping.complete(),
 
     -- go to next placeholder in the snippet
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ['<C-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_locally_jumpable() then
@@ -286,12 +290,17 @@ cmp.setup({
     end, {'i', 's'}),
 
   }),
-  -- sources = cmp.config.sources({
-  --   { name = 'nvim_lsp' },
-  --   { name = 'luasnip' }, -- For luasnip users.
-  -- }, {
-  --   { name = 'buffer' },
-  -- })
+  -- sources = {
+  --   { name = "emmet-ls" },
+  --   { name = "supermaven" },
+  -- }
+  sources = cmp.config.sources({
+    { name = 'supermanen' },
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' }, -- For luasnip users.
+    { name = 'buffer' },
+    { name = 'emmet_ls' },
+  }),
 })
 
 -- disable completion with tab

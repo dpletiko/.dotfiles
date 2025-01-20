@@ -75,7 +75,7 @@ time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["Comment.nvim"] = {
-    config = { "\27LJ\2\n¥\2\0\0\6\0\r\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0026\3\0\0'\5\n\0B\3\2\0029\3\v\3B\3\1\2=\3\f\2B\0\2\1K\0\1\0\rpre_hook\20create_pre_hook7ts_context_commentstring.integrations.comment_nvim\rmappings\1\0\2\nbasic\2\nextra\2\ropleader\1\0\2\tline\agc\nblock\agb\ftoggler\1\0\4\rpre_hook\0\ftoggler\0\ropleader\0\rmappings\0\1\0\2\tline\bgcc\nblock\bgbc\nsetup\fComment\frequire\0" },
+    config = { "\27LJ\2\n¥\2\0\0\6\0\r\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0026\3\0\0'\5\n\0B\3\2\0029\3\v\3B\3\1\2=\3\f\2B\0\2\1K\0\1\0\rpre_hook\20create_pre_hook7ts_context_commentstring.integrations.comment_nvim\rmappings\1\0\2\nextra\2\nbasic\2\ropleader\1\0\2\tline\agc\nblock\agb\ftoggler\1\0\4\rmappings\0\rpre_hook\0\ftoggler\0\ropleader\0\1\0\2\tline\bgcc\nblock\bgbc\nsetup\fComment\frequire\0" },
     loaded = true,
     path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
@@ -144,6 +144,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
+  },
+  ["lspkind.nvim"] = {
+    loaded = true,
+    path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
+    url = "https://github.com/onsails/lspkind.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -221,6 +226,12 @@ _G.packer_plugins = {
     path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/sonokai",
     url = "https://github.com/sainnhe/sonokai"
   },
+  ["supermaven-nvim"] = {
+    config = { "\27LJ\2\n\15\0\0\1\0\0\0\2+\0\1\0L\0\2\0Á\2\1\0\4\0\f\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0023\3\n\0=\3\v\2B\0\2\1K\0\1\0\14condition\0\ncolor\1\0\2\21suggestion_color\f#ffffff\ncterm\3Ù\1\21ignore_filetypes\1\0\1\bcpp\2\fkeymaps\1\0\a\ncolor\0\fkeymaps\0\14condition\0\21ignore_filetypes\0\30disable_inline_completion\1\14log_level\tinfo\20disable_keymaps\1\1\0\3\22accept_suggestion\n<Tab>\16accept_word\n<C-j>\21clear_suggestion\n<C-]>\nsetup\20supermaven-nvim\frequire\0" },
+    loaded = true,
+    path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/supermaven-nvim",
+    url = "https://github.com/supermaven-inc/supermaven-nvim"
+  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/home/dpleti/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
@@ -270,18 +281,22 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: supermaven-nvim
+time([[Config for supermaven-nvim]], true)
+try_loadstring("\27LJ\2\n\15\0\0\1\0\0\0\2+\0\1\0L\0\2\0Á\2\1\0\4\0\f\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0023\3\n\0=\3\v\2B\0\2\1K\0\1\0\14condition\0\ncolor\1\0\2\21suggestion_color\f#ffffff\ncterm\3Ù\1\21ignore_filetypes\1\0\1\bcpp\2\fkeymaps\1\0\a\ncolor\0\fkeymaps\0\14condition\0\21ignore_filetypes\0\30disable_inline_completion\1\14log_level\tinfo\20disable_keymaps\1\1\0\3\22accept_suggestion\n<Tab>\16accept_word\n<C-j>\21clear_suggestion\n<C-]>\nsetup\20supermaven-nvim\frequire\0", "config", "supermaven-nvim")
+time([[Config for supermaven-nvim]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+try_loadstring("\27LJ\2\nè\1\0\0\3\0\6\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\4\0B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\5\0B\0\2\1K\0\1\0\fflutter\19live_grep_args\bfzf\19load_extension\14telescope\frequire\0", "config", "telescope.nvim")
+time([[Config for telescope.nvim]], false)
 -- Config for: Comment.nvim
 time([[Config for Comment.nvim]], true)
-try_loadstring("\27LJ\2\n¥\2\0\0\6\0\r\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0026\3\0\0'\5\n\0B\3\2\0029\3\v\3B\3\1\2=\3\f\2B\0\2\1K\0\1\0\rpre_hook\20create_pre_hook7ts_context_commentstring.integrations.comment_nvim\rmappings\1\0\2\nbasic\2\nextra\2\ropleader\1\0\2\tline\agc\nblock\agb\ftoggler\1\0\4\rpre_hook\0\ftoggler\0\ropleader\0\rmappings\0\1\0\2\tline\bgcc\nblock\bgbc\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+try_loadstring("\27LJ\2\n¥\2\0\0\6\0\r\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0026\3\0\0'\5\n\0B\3\2\0029\3\v\3B\3\1\2=\3\f\2B\0\2\1K\0\1\0\rpre_hook\20create_pre_hook7ts_context_commentstring.integrations.comment_nvim\rmappings\1\0\2\nextra\2\nbasic\2\ropleader\1\0\2\tline\agc\nblock\agb\ftoggler\1\0\4\rmappings\0\rpre_hook\0\ftoggler\0\ropleader\0\1\0\2\tline\bgcc\nblock\bgbc\nsetup\fComment\frequire\0", "config", "Comment.nvim")
 time([[Config for Comment.nvim]], false)
 -- Config for: nvim-ts-context-commentstring
 time([[Config for nvim-ts-context-commentstring]], true)
 try_loadstring("\27LJ\2\n]\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\19enable_autocmd\1\nsetup\29ts_context_commentstring\frequire\0", "config", "nvim-ts-context-commentstring")
 time([[Config for nvim-ts-context-commentstring]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-try_loadstring("\27LJ\2\nè\1\0\0\3\0\6\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\4\0B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\5\0B\0\2\1K\0\1\0\fflutter\19live_grep_args\bfzf\19load_extension\14telescope\frequire\0", "config", "telescope.nvim")
-time([[Config for telescope.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
