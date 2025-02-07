@@ -244,13 +244,13 @@ exec_always --no-startup-id xrandr --output DP-1 --pos 1080x317
 exec --no-startup-id "i3-msg 'workspace 1; append_layout /home/dpleti/.config/i3/ws/w1.json'"
 exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/dpleti/.config/i3/ws/w2.json'"
 exec --no-startup-id "i3-msg 'workspace 3; append_layout /home/dpleti/.config/i3/ws/w3.json'"
-exec --no-startup-id "i3-msg 'workspace 9; append_layout /home/dpleti/.config/i3/ws/w9.json'"
+# exec --no-startup-id "i3-msg 'workspace 9; append_layout /home/dpleti/.config/i3/ws/w9.json'"
 exec --no-startup-id "i3-msg 'workspace 10; append_layout /home/dpleti/.config/i3/ws/w10.json'"
 
 
 exec --no-startup-id google-chrome
 exec --no-startup-id code
-exec --no-startup-id spotify
+# exec --no-startup-id spotify
 exec --no-startup-id phpstorm
 exec --no-startup-id google-chrome --app-id=mdpkiolbdkhdjpekfbkbmhigcaggjagi --profile-directory="Profile 1"
 exec --no-startup-id i3-msg 'exec i3-sensible-terminal -e "tmux"'

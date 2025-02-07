@@ -1,25 +1,60 @@
 // vim:ts=4:sw=4:et
 {
+    // tabbed split container with 2 children
     "border": "normal",
-    "current_border_width": 2,
     "floating": "auto_off",
-    "geometry": {
-       "height": 1028,
-       "width": 1910,
-       "x": 1080,
-       "y": 324
-    },
+    "layout": "tabbed",
     "marks": [],
-    "name": "Welcome to PhpStorm",
-    "percent": 1,
-    "swallows": [
-       {
-           "class": "^jetbrains\\-phpstorm$",
-           "instance": "^jetbrains\\-phpstorm$",
-           "machine": "^tabris$",
-           "title": "^Welcome\\ to\\ PhpStorm$"
-       }
-    ],
-    "type": "con"
+    "percent": null,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "normal",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 620,
+               "width": 790,
+               "x": 140,
+               "y": 423
+            },
+            "marks": [],
+            "name": "PhpStorm",
+            "percent": 0.5,
+            "swallows": [
+               {
+                   "class": "^jetbrains\\-phpstorm$",
+                   "instance": "^jetbrains\\-phpstorm$",
+                   "machine": "^tabris$",
+                   // "title": "^Welcome\\ to\\ PhpStorm$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "normal",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 1036,
+               "width": 1916,
+               "x": 1082,
+               "y": 337
+            },
+            "marks": [],
+            "name": "Visual Studio Code",
+            "percent": 0.5,
+            "swallows": [
+               {
+                   "class": "^Code$",
+                   "instance": "^code$",
+                   "machine": "^tabris$",
+                   // "title": "^Welcome\\ \\-\\ Visual\\ Studio\\ Code$",
+                   "window_role": "^browser\\-window$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
 }
 

@@ -4,18 +4,19 @@
     "current_border_width": 2,
     "floating": "auto_off",
     "geometry": {
-       "height": 485,
-       "width": 815,
-       "x": 0,
-       "y": 0
+       "height": 1041,
+       "width": 1916,
+       "x": 1082,
+       "y": 327
     },
     "marks": [],
-    "name": "xfce4-terminal",
+    "name": "Spotify",
     "percent": 1,
     "swallows": [
        {
-           "class": "^Xfce4\\-terminal$",
-           "instance": "^xfce4\\-terminal$"
+       "class": "^Spotify$",
+       "instance": "^spotify$",
+       "title": "^Spotify$"
        }
     ],
     "type": "con"
