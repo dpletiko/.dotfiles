@@ -10,6 +10,7 @@ VIM="nvim"
 export LD_LIBRARY_PATH=/home/dpleti/Documents/onnxruntime-linux-x64-1.18-0/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 
+export EDITOR="nvim"
 export GIT_EDITOR=$VIM
 export DENO_INSTALL="$HOME/.deno"
 export DOTFILES=$HOME/.dotfiles
