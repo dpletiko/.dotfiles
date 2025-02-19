@@ -205,14 +205,17 @@ exec --no-startup-id /usr/bin/xset dpms 0 0 0
 
 # UserConf
 for_window [class="Yad"] floating enable
-for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws10
+for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws9
+
+# for_window [class="Code"] floating disable
+# for_window [class="jetbrains-phpstorm"] floating enable
 
 #assign [class="Google-chrome" instance="crx_mdpkiolbdkhdjpekfbkbmhigcaggjagi" title="Google Chat"] workspace $ws9
 #assign [class="Google-chrome"] workspace $ws1
 assign [class="Code"] workspace $ws3
 assign [class="jetbrains-phpstorm"] workspace $ws3
 #assign [class="Slack"] workspace $ws9
-assign [class="^Spotify"] workspace $ws10
+assign [class="^Spotify"] workspace $ws9
 
 
 
@@ -249,10 +252,10 @@ exec --no-startup-id "i3-msg 'workspace 10; append_layout /home/dpleti/.config/i
 
 
 exec --no-startup-id google-chrome
+exec --no-startup-id phpstorm
 exec --no-startup-id code
 # exec --no-startup-id spotify
-exec --no-startup-id phpstorm
-exec --no-startup-id google-chrome --app-id=mdpkiolbdkhdjpekfbkbmhigcaggjagi --profile-directory="Profile 1"
+exec --no-startup-id google-chrome --app-id=mdpkiolbdkhdjpekfbkbmhigcaggjagi --profile-directory="Profile 2"
 exec --no-startup-id i3-msg 'exec i3-sensible-terminal -e "tmux"'
 #exec --no-startup-id i3-msg 'workspace $ws2; exec i3-sensible-terminal -e "tmux has-session -t default && tmux attach -t default || tmux new -s default"'
 
