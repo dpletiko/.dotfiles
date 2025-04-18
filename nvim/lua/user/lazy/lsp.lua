@@ -38,7 +38,7 @@ return {
             append_default_schemas = true,
             loader = 'json'
         })
-        
+
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
@@ -55,6 +55,7 @@ return {
                 'docker_compose_language_service',
                 'pyright',
                 'emmet_ls',
+                'dockerls',
                 -- 'emmet_language_server'
             },
             handlers = {
@@ -78,7 +79,7 @@ return {
                         }
                     }
                 end,
-                
+
                 ansiblels = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.ansiblels.setup({
@@ -104,7 +105,7 @@ return {
                       },
                     })
                 end,
-              
+
                 intelephense = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.intelephense.setup({
@@ -129,14 +130,14 @@ return {
                       },
                     })
                 end,
-              
+
                 ts_ls = function()
                     local vue_ts_plugin = require('mason-registry')
                         .get_package('vue-language-server')
                         :get_install_path()
                         .. '/node_modules/@vue/language-server'
                         .. '/node_modules/@vue/typescript-plugin'
-                    
+
                     local lspconfig = require("lspconfig")
                     lspconfig.ts_ls.setup({
                         -- detached = false,
@@ -157,7 +158,7 @@ return {
                         },
                     })
                 end,
-            
+
                 volar = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.volar.setup({
@@ -175,7 +176,7 @@ return {
                         -- }
                     })
                 end,
-            
+
                 emmet_ls = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.emmet_ls.setup({
@@ -192,7 +193,7 @@ return {
                         }
                     })
                 end,
-            
+
                 rust_analyzer = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.rust_analyzer.setup({
@@ -238,14 +239,14 @@ return {
                 --         },
                 --     })
                 -- end,
-            
+
                 -- vuels = function()
                 --     local lspconfig = require("lspconfig")
                 --     lspconfig.vuels.setup({
                 --         settings = {
                 --         vetur = {
                 --             ignoreProjectWarning = true,
-                    
+
                 --             completion = {
                 --             autoImport = true,
                 --             useScaffoldSnippets = true
@@ -295,12 +296,12 @@ return {
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 -- ['<C-y>'] = cmp.mapping.confirm({ select = false }),
-                ['<C-y>'] = cmp.mapping.confirm({ 
+                ['<C-y>'] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert, -- TODO: Verify my config value
-                    select = true 
+                    select = true
                 }),
                 ["<C-Space>"] = cmp.mapping.complete(),
-            
+
                 -- go to next placeholder in the snippet
                 ['<C-Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
@@ -318,7 +319,7 @@ return {
                     --   fallback()
                     -- end
                 end, {'i', 's'}),
-            
+
                 -- go to previous placeholder in the snippet
                 ['<S-Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
@@ -349,7 +350,7 @@ return {
 
         vim.diagnostic.config({
             virtual_text = true, -- TODO: Verify my config value
-            
+
             -- update_in_insert = true,
             float = {
                 focusable = false,

@@ -1,21 +1,23 @@
-return { 
-    "rcarriga/nvim-dap-ui", 
+return {
+    "rcarriga/nvim-dap-ui",
     dependencies = {
-        "mfussenegger/nvim-dap", 
+        "mfussenegger/nvim-dap",
         "nvim-neotest/nvim-nio",
         "mortepau/codicons.nvim"
     },
     config = function()
-        local dap = require("dap")
-        local dapui = require("dapui")
+        local dap, dapui = require("dap"), require("dapui")
 
-        dap.listeners.after.event_initialized["dapui_config"] = function()
+        dap.listeners.before.attach.dapui_config = function()
             dapui.open()
         end
-        dap.listeners.before.event_terminated["dapui_config"] = function()
+        dap.listeners.before.launch.dapui_config = function()
+            dapui.open()
+        end
+        dap.listeners.before.event_terminated.dapui_config = function()
             dapui.close()
         end
-        dap.listeners.before.event_exited["dapui_config"] = function()
+        dap.listeners.before.event_exited.dapui_config = function()
             dapui.close()
         end
 
@@ -30,7 +32,7 @@ return {
         vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint)
 
         vim.keymap.set('n', '<leader>dl', dap.run_last)
-        vim.keymap.set('n', '<leader>dr', dap.repl.open)
+        vim.keymap.set('n', '<leader>dr', dap.repl.toggle)
 
         vim.keymap.set('n', '<leader>dt', dapui.toggle)
 
