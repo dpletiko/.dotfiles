@@ -42,6 +42,7 @@ return {
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
+            -- automatic_enable = false,
             ensure_installed = {
                 'ts_ls',
                 'eslint',
