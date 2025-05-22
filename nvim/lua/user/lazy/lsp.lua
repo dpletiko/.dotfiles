@@ -32,7 +32,7 @@ return {
         -- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
         require("nlspsettings").setup({
-            -- config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+            config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
             local_settings_dir = ".vscode",
             local_settings_root_markers_fallback = { '.git' },
             append_default_schemas = true,
@@ -42,15 +42,14 @@ return {
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
-            -- automatic_enable = false,
+            automatic_enable = true,
             ensure_installed = {
                 'ts_ls',
                 'eslint',
                 'lua_ls',
                 'rust_analyzer',
                 'intelephense',
-                --'vuels',
-                'volar',
+                'vue_ls',
                 'ansiblels',
                 'yamlls',
                 'docker_compose_language_service',
