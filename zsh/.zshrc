@@ -101,7 +101,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-source ~/.zsh_profile
+source ~/.dotfiles/zsh/.zsh_profile
 
 
 export NVM_DIR="$HOME/.nvm"
