@@ -1,0 +1,40 @@
+window {
+  background-image: url("/home/dpleti/.dotfiles/pics/omao-shaded.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+box#body {
+  background-color: rgba(50, 50, 50, 0.5);
+  border-radius: 15px;
+  padding: 50px;
+}
+
+label {
+  color: white;
+  font-size: 18px;
+  margin: 6px;
+  font-weight: bold;
+}
+
+entry {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid white;
+  color: white;
+  margin: 6px;
+  padding: 8px;
+}
+
+button {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid white;
+  color: white;
+  margin: 6px;
+  padding: 8px;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

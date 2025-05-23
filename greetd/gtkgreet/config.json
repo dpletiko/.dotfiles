@@ -1,0 +1,13 @@
+{
+  "gtk": {
+    "css_path": "/etc/greetd/gtkgreet/style.css"
+  },
+  "background": {
+    "path": "/home/dpleti/.dotfiles/pics/omao-shaded.jpeg",
+    "fit": "cover"
+  },
+  "window": {
+    "width": 1920,
+    "height": 1080
+  }
+}
