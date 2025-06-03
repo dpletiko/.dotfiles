@@ -32,6 +32,8 @@ path+=("$HOME/.local/bin")
 path+=("$HOME/.pub-cache/bin")
 path+=("$HOME/fvm/default/bin")
 path+=("$HOME/.config/composer/vendor/bin")
+path+=("$HOME/Android/Sdk/platform-tools")
+path+=("$HOME/Android/Sdk/tools")
 
 source $DOTFILES/zsh/.aliases
 source $DOTFILES/zsh/.zsh_ssh
