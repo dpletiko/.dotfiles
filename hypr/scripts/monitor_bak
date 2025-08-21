@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+LAYOUT_FILE="$HOME/.dotfiles/hypr/work.layout.json"
+
+# DEPENDENCY CHECKS
+command -v hyprctl >/dev/null || { echo "❌ Missing hyprctl"; exit 1; }
+command -v jq >/dev/null || { echo "❌ Missing jq"; exit 1; }
+command -v socat >/dev/null || { echo "❌ Missing socat"; exit 1; }
+
+# GET CURRENT MONITOR MODELS AS STRINGS
+CURRENT_MODELS=$(hyprctl monitors all -j | jq -r '.[].model | tostring')
+echo "🖥️  Current monitors: $(echo "${CURRENT_MODELS//$'\n'/, }")"
+
+# CHECK LAYOUT FILE EXISTS
+[ -f "$LAYOUT_FILE" ] || { echo "❌ Layout file missing: $LAYOUT_FILE"; exit 1; }
+
+# CHECK IF ALL CURRENT MODELS EXIST IN SAVED LAYOUT
+ALL_PRESENT=true
+while read -r model; do
+    if ! jq -e --arg model "$model" '[.[].model | tostring] | any(. == $model)' "$LAYOUT_FILE" >/dev/null; then
+        echo "❌ Missing in saved layout: $model"
+        ALL_PRESENT=false
+    fi
+done <<< "$CURRENT_MODELS"
+
+# APPLY LAYOUT IF ALL MODELS PRESENT
+if $ALL_PRESENT; then
+    echo "✅ ALL CURRENT MONITORS FOUND IN SAVED LAYOUT - APPLYING CONFIG"
+
+    # Create model-to-name mapping from current monitors
+    declare -A MODEL_TO_NAME
+    while IFS= read -r line; do
+        model=$(jq -r '.model | tostring' <<< "$line")
+        name=$(jq -r '.name' <<< "$line")
+        MODEL_TO_NAME["$model"]="$name"
+    done < <(hyprctl monitors -j | jq -c '.[]')
+
+    # Apply configuration for each monitor in saved layout
+    jq -c '.[]' "$LAYOUT_FILE" | while read -r MONITOR; do
+        model=$(jq -r '.model | tostring' <<< "$MONITOR")
+        name="${MODEL_TO_NAME[$model]}"
+
+        # Skip if monitor not currently connected
+        # [ -z "$name" ] && continue
+
+        disabled=$(jq -r '.disabled // false' <<< "$MONITOR")
+
+        if [ "$disabled" = "true" ]; then
+            echo "🚫 Disabling monitor $name ($model)"
+            hyprctl keyword monitor "$name,disabled"
+        else
+            width=$(jq -r '.width' <<< "$MONITOR")
+            height=$(jq -r '.height' <<< "$MONITOR")
+            refresh=$(jq -r '.refreshRate | if type == "string" then . | tonumber? // 60 else . end | floor' <<< "$MONITOR")
+            x=$(jq -r '.x' <<< "$MONITOR")
+            y=$(jq -r '.y' <<< "$MONITOR")
+            scale=$(jq -r '.scale' <<< "$MONITOR")
+            transform=$(jq -r '.transform // 0' <<< "$MONITOR")
+
+            echo "🖥️  Configuring $name ($model): ${width}x${height}@${refresh} at ${x}x${y}, scale $scale, transform $transform"
+            hyprctl keyword monitor "$name,${width}x${height}@${refresh},${x}x${y},$scale,transform,$transform"
+        fi
+    done
+else
+    echo "❌ ABORTING: Not all current monitors exist in saved layout"
+    exit 1
+fi

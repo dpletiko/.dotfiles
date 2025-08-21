@@ -1,0 +1,151 @@
+* {
+  font-family: JetbrainsMono Nerd Font;
+  font-size: 15px;
+  min-height: 0;
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-bottom: 0px;
+}
+
+#waybar {
+  background: transparent;
+  color: #c6d0f5;
+  margin: 5px 5px;
+}
+
+#workspaces {
+  border-radius: 5px;
+  margin: 5px;
+  margin-left: 0px;
+  background: #101010;
+  /* margin-left: 0; */
+}
+
+#workspaces button {
+  color: #babbf1;
+  border-radius: 5px;
+  padding: 0.4rem;
+}
+
+#workspaces button.active {
+  color: #99d1db;
+  border-radius: 5px;
+}
+
+#workspaces button:hover {
+  color: #85c1dc;
+  border-radius: 5px;
+}
+
+#custom-music,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#custom-lock,
+#custom-power,
+#custom-reboot,
+#custom-sleep {
+  background-color: #101010;
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
+  border-radius: 0px 5px 5px 0px;
+}
+
+#network {
+  margin: 5px 5px 5px 0;
+}
+#cpu {
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 5px 5px 0;
+}
+
+#memory {
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 5px 5px 0;
+}
+
+#clock {
+  color: #8caaee;
+  border-radius: 5px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+#battery {
+  color: #a6d189;
+}
+
+#battery.charging {
+  color: #a6d189;
+}
+
+#battery.warning:not(.charging) {
+  color: #e78284;
+}
+
+#backlight {
+  color: #e5c890;
+}
+
+#backlight,
+#battery {
+  border-radius: 0;
+}
+
+#battery {
+  border-radius: 0px 5px 5px 0px;
+}
+
+#pulseaudio {
+  color: #ea999c;
+  border-radius: 5px 0px 0px 5px;
+  margin-left: 1rem;
+}
+
+#custom-music {
+  color: #ca9ee6;
+  border-radius: 5px;
+}
+
+#custom-lock,
+#custom-power,
+#custom-reboot,
+#custom-sleep {
+  /* background-color: #101010; */
+  /* color: #e5c890; */
+  color: #babbf1;
+}
+
+#custom-lock { border-radius: 5px 0px 0px 5px; }
+#custom-sleep { border-radius: 0px; }
+#custom-reboot { border-radius: 0px 5px 5px 0px; }
+#custom-power {
+  border-radius: 5px 5px 5px 5px;
+  color: #e78284;
+  /* margin-left: 5px; */
+}
+
+.modules-right .horizontal {
+    padding: 0;
+}
+
+.drawer-child { }
+
+#custom-lock:hover,
+#custom-power:hover,
+#custom-reboot:hover,
+#custom-sleep:hover {
+  color: #e78284;
+}
+
+#tray {
+  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
