@@ -11,6 +11,7 @@ vim.opt.expandtab = true
 vim.opt.copyindent = true
 
 vim.opt.smartindent = true
+-- vim.opt.smartindent = false
 
 vim.opt.wrap = false
 

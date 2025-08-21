@@ -11,7 +11,7 @@ return {
         --     enable_autocmd = false,
         -- }
 
-        -- local treesitter_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+        local treesitter_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
         -- treesitter_parser_config.templ = {
         --     install_info = {

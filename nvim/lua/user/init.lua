@@ -29,6 +29,18 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
+local IndentGruop = augroup("IndentSettings", {})
+autocmd("FileType", {
+  group = IndentGruop,
+  nested = true,
+  pattern = { "vue", "typescript", "javascript" },
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.softtabstop = 2
+    vim.bo.expandtab = true
+  end,
+})
 
 autocmd('LspAttach', {
     group = TheGroup,
@@ -47,12 +59,20 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
 
-        vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, opts)
+        -- vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, opts)
+        vim.keymap.set("n", "<leader>f", function(args)
+            require("conform").format({
+                async = true,
+                -- bufnr = args.buf,
+                lsp_fallback = true
+            })
+        end, opts)
     end
 })
 
-vim.g.node_host_prog = '~/.nvm/versions/node/v21.2.0/lib/node_modules'
-vim.g.copilot_node_command = '~/.nvm/versions/node/v21.2.0/bin/node'
+-- vim.g.node_host_prog = '~/.nvm/versions/node/v22.16.0/lib/node_modules'
+vim.g.node_host_prog = '~/.nvm/versions/node/v22.16.0/bin/neovim-node-host'
+vim.g.copilot_node_command = '~/.nvm/versions/node/v22.16.0/bin/node'
 
 vim.g.python_recommended_style = 0
 
