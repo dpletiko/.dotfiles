@@ -45,4 +45,8 @@
 # background-image = ~/.dotfiles/pics/omao.jpeg
 background-opacity = 0.0
 
-font-size = 14
+font-size = 13
+
+font-feature = -calt
+font-feature = -dlig
+font-feature = -liga
