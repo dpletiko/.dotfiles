@@ -152,6 +152,8 @@ return {
             require("mason-nvim-dap").setup({
                 ensure_installed = {
                     "delve",
+                    "js-debug-adapter",
+                    "php-debug-adapter",
                 },
                 automatic_installation = true,
                 handlers = {

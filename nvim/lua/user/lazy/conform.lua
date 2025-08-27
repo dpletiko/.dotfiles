@@ -1,10 +1,5 @@
 return {
-    "stevearc/conform.nvim",
-    dependencies = {
-        "neovim/nvim-lspconfig",
-        "mason-org/mason.nvim",
-        "mason-org/mason-lspconfig.nvim"
-    },
+    'stevearc/conform.nvim',
     opts = {
         log_level = vim.log.levels.DEBUG,
         formatters_by_ft = {
@@ -15,5 +10,5 @@ return {
             php = { "pint", "php_cs_fixer" },
         },
         stop_after_first = true,
-    }
+    },
 }

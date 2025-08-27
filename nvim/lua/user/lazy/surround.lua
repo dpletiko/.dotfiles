@@ -8,10 +8,3 @@ return {
         })
     end
 }
-
--- return {
---     "tpope/vim-surround",
---     config = function()
---         require('tpope/vim-surround').setup({})
---     end
--- }

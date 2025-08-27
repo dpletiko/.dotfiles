@@ -2,9 +2,16 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
         "stevearc/conform.nvim",
-        "mason-org/mason.nvim",
-        "mason-org/mason-lspconfig.nvim",
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/nvim-cmp",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+        "j-hui/fidget.nvim",
     },
     config = function()
         local project_root = vim.fn.getcwd()
@@ -15,6 +22,35 @@ return {
             require("cmp_nvim_lsp").default_capabilities()
         )
         -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+        require("fidget").setup({})
+        require("mason").setup()
+
+        -- lint/formatters:
+        -- php-cs-fixer, pint, prettierd, prettier
+        require("mason-lspconfig").setup({
+            automatic_enable = true,
+            ensure_installed = {
+                -- 'ts_ls',
+                'eslint',
+                'lua_ls',
+                'rust_analyzer',
+                'intelephense',
+                -- 'phpactor',
+                'ansiblels',
+                'yamlls',
+                'docker_compose_language_service',
+                'pyright',
+                'dockerls',
+                'html',
+                -- 'emmet_ls',
+                'emmet_language_server',
+                'vtsls',
+                'vue_ls',
+                'cssls',
+                'somesass_ls'
+            },
+        })
 
         vim.lsp.config('lua_ls', {
             -- capabilities = capabilities,

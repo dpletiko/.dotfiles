@@ -54,6 +54,13 @@ return {
         telescope.setup({
             defaults = {
                 hidden = true,
+                -- layout_strategy = "vertical",
+                -- layout_config = {
+                    -- preview_cutoff = 120,
+                    -- prompt_position = "top",
+                    -- width = 0.8,
+                    -- preview_height = .5,
+                -- },
                 mappings = {
                     i = {
                         ["<C-Up>"] = actions.cycle_history_prev,
@@ -90,6 +97,7 @@ return {
         telescope.load_extension("node_modules")
         telescope.load_extension("recent_files")
         telescope.load_extension("file_browser")
+        telescope.load_extension("neoclip")
 
         -- telescope.extensions.dap.configurations()
 
@@ -106,7 +114,7 @@ return {
 
         -- vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<leader>pf', function()
-            if vim.o.lines > 80 then
+            if vim.o.lines >= 80 then
                 return builtin.find_files(
                     require('telescope.themes').get_dropdown({})
                 )
@@ -114,7 +122,7 @@ return {
             builtin.find_files()
         end)
         vim.keymap.set('n', '<leader>pF', function()
-            if vim.o.lines > 80 then
+            if vim.o.lines >= 80 then
                 return builtin.find_files(
                     require('telescope.themes').get_dropdown({})
                 )
@@ -150,5 +158,7 @@ return {
         vim.keymap.set('n', '<leader><leader>', function()
             telescope.extensions.recent_files.pick()
         end, { noremap = true, silent = true })
+
+        vim.keymap.set('n', '<leader>pn', '<cmd>Telescope neoclip<CR>')
     end
 }
