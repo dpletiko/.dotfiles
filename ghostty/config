@@ -50,3 +50,6 @@ font-size = 13
 font-feature = -calt
 font-feature = -dlig
 font-feature = -liga
+
+# Remove default binding for new window (Ctrl+Shift+N)
+keybind = ctrl+shift+n=unbind
