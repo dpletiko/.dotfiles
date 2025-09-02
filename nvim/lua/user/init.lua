@@ -70,6 +70,51 @@ autocmd('LspAttach', {
     end
 })
 
+local CloseWithQ = augroup("CloseWithQ", { clear = true })
+autocmd('FileType', {
+  group = CloseWithQ,
+  pattern = {
+    'PlenaryTestPopup',
+    'checkhealth',
+    'dbout',
+    'gitsigns-blame',
+    'grug-far',
+    'help',
+    'lspinfo',
+    'neotest-output',
+    'neotest-output-panel',
+    'neotest-summary',
+    'notify',
+    'git',
+    'qf',
+    'spectre_panel',
+    'startuptime',
+    'tsplayground',
+    'fugitive',
+    'gitsigns',
+    'git',
+    'diff',
+    'fugitiveblame',
+    'fugitiveblamediff',
+    'fugitivelog',
+    'fugitivepatch',
+    'fugitivepreview',
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.schedule(function()
+      vim.keymap.set('n', 'q', function()
+        vim.cmd 'close'
+        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+      end, {
+        buffer = event.buf,
+        silent = true,
+        desc = 'Quit buffer',
+      })
+    end)
+  end,
+})
+
 -- vim.g.node_host_prog = '~/.nvm/versions/node/v22.16.0/lib/node_modules'
 vim.g.node_host_prog = '~/.nvm/versions/node/v22.16.0/bin/neovim-node-host'
 vim.g.copilot_node_command = '~/.nvm/versions/node/v22.16.0/bin/node'

@@ -13,14 +13,19 @@ return {
       --       })
       --   end,
       filetypes = {
-        "javascript",
-        "typescript",
-        "vue",
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+		"vue",
       },
       settings = {
         single_file_support = false,
         tsserver_plugins = {
-          "@vue/typescript-plugin",
+            "@vue/language-server",
+            "@vue/typescript-plugin",
         },
       },
     }

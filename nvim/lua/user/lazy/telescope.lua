@@ -97,7 +97,6 @@ return {
         telescope.load_extension("node_modules")
         telescope.load_extension("recent_files")
         telescope.load_extension("file_browser")
-        telescope.load_extension("neoclip")
 
         -- telescope.extensions.dap.configurations()
 
