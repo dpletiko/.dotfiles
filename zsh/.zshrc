@@ -174,6 +174,7 @@ HOST=$(hostname)
 case "$OS" in
     Darwin)
         [[ -f ~/.dotfiles/zsh/os/macos.zsh ]] && source ~/.dotfiles/zsh/os/macos.zsh
+        [[ -f ~/.dotfiles/zsh/.zsh_ssh ]] && source ~/.dotfiles/zsh/.zsh_ssh
         ;;
     Linux)
         [[ -f ~/.dotfiles/zsh/os/linux.zsh ]] && source ~/.dotfiles/zsh/os/linux.zsh
