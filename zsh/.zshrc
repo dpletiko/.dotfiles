@@ -170,19 +170,12 @@ OS=$(uname -s)
 ARCH=$(uname -m)
 HOST=$(hostname)
 
-# Load OS-specific config
-case "$OS" in
-    Darwin)
-        [[ -f ~/.dotfiles/zsh/os/macos.zsh ]] && source ~/.dotfiles/zsh/os/macos.zsh
-        [[ -f ~/.dotfiles/zsh/.zsh_ssh ]] && source ~/.dotfiles/zsh/.zsh_ssh
-        ;;
-    Linux)
-        [[ -f ~/.dotfiles/zsh/os/linux.zsh ]] && source ~/.dotfiles/zsh/os/linux.zsh
-        ;;
-esac
+# OS
+for f in ~/.dotfiles/zsh/os/$OS/*.zsh; do [[ -f $f ]] && source "$f"; done
 
-# Load architecture-specific config
-# [[ -f ~/.zsh/arch/$ARCH.zsh ]] && source ~/.zsh/arch/$ARCH.zsh
+# Host
+for f in ~/.dotfiles/zsh/host/$HOST/*.zsh; do [[ -f $f ]] && source "$f"; done
 
-# Load host-specific config (server-specific overrides)
-# [[ -f ~/.zsh/host/$HOST.zsh ]] && source ~/.zsh/host/$HOST.zsh
+# Architecture
+# for f in ~/.dotfiles/zsh/arch/$ARCH/*.zsh; do [[ -f $f ]] && source "$f"; done
+

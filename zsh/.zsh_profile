@@ -38,7 +38,7 @@ path+=("$HOME/Android/Sdk/platform-tools")
 path+=("$HOME/Android/Sdk/tools")
 
 source $DOTFILES/zsh/.aliases
-source $DOTFILES/zsh/.zsh_ssh
+# source $DOTFILES/zsh/.zsh_ssh
 
 
 # Where should I put you?
