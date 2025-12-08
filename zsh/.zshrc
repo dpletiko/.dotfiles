@@ -171,11 +171,11 @@ ARCH=$(uname -m)
 HOST=$(hostname)
 
 # OS
-for f in ~/.dotfiles/zsh/os/$OS/*.zsh; do [[ -f $f ]] && source "$f"; done
+for f in ~/.dotfiles/zsh/os/$OS/*.zsh(N); do [[ -f $f ]] && source "$f"; done
 
 # Host
-for f in ~/.dotfiles/zsh/host/$HOST/*.zsh; do [[ -f $f ]] && source "$f"; done
+for f in ~/.dotfiles/zsh/host/$HOST/*.zsh(N); do [[ -f $f ]] && source "$f"; done
 
 # Architecture
-# for f in ~/.dotfiles/zsh/arch/$ARCH/*.zsh; do [[ -f $f ]] && source "$f"; done
+# for f in ~/.dotfiles/zsh/arch/$ARCH/*.zsh(N); do [[ -f $f ]] && source "$f"; done
 
