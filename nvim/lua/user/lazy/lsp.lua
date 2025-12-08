@@ -2,8 +2,8 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
         "stevearc/conform.nvim",
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason.nvim",
+        "mason-org/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -23,11 +23,16 @@ return {
         )
         -- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-        require("fidget").setup({})
+        require("fidget").setup({
+            notification = {
+                window = {
+                    winblend = 0,
+                },
+            },
+        })
         require("mason").setup()
 
-        -- lint/formatters:
-        -- php-cs-fixer, pint, prettierd, prettier
+        -- lint/formatters: php-cs-fixer, pint, prettierd, prettier
         require("mason-lspconfig").setup({
             automatic_enable = true,
             ensure_installed = {
@@ -36,7 +41,7 @@ return {
                 'lua_ls',
                 'rust_analyzer',
                 'intelephense',
-                -- 'phpactor',
+                'phpactor',
                 'ansiblels',
                 'yamlls',
                 'docker_compose_language_service',
@@ -48,7 +53,8 @@ return {
                 'vtsls',
                 'vue_ls',
                 'cssls',
-                'somesass_ls'
+                'somesass_ls',
+                'tailwindcss'
             },
         })
 
@@ -88,12 +94,12 @@ return {
         })
 
         vim.lsp.config('intelephense', {
-            cmd = {
-                vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/bin/node",
-                vim.fn.exepath("intelephense"),
-                -- 'intelephense',
-                '--stdio'
-            },
+            -- cmd = {
+            --     vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/bin/node",
+            --     vim.fn.exepath("intelephense"),
+            --     -- 'intelephense',
+            --     '--stdio'
+            -- },
             settings = {
                 intelephense = {
                     files = {
@@ -118,20 +124,31 @@ return {
             },
         })
         vim.lsp.config('phpactor', {
+            -- enabled = false,
+            -- cmd = { 'phpactor', 'language-server', '-vvv' },
+            init_options = {
+                ['language_server_worse_reflection.inlay_hints.enable'] = true,
+                ['language_server_worse_reflection.inlay_hints.types'] = true,
+                ['language_server_worse_reflection.inlay_hints.params'] = true,
+
+                ['completion.dedupe'] = true,
+
+                ['language_server_psalm.enabled'] = false,
+                ['language_server_phpstan.enabled'] = true,
+            },
             settings = {
                 phpactor = {
-
                 }
             },
         })
 
 
         vim.lsp.config('ts_ls', {
-            cmd = {
-                -- vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/bin/node",
-                vim.fn.expand("~") .. "/.local/share/nvim/mason/packages/typescript-language-server/node_modules/.bin/typescript-language-server",
-                "--stdio"
-            },
+            -- cmd = {
+            --     -- vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/bin/node",
+            --     vim.fn.expand("~") .. "/.local/share/nvim/mason/packages/typescript-language-server/node_modules/.bin/typescript-language-server",
+            --     "--stdio"
+            -- },
             settings = {
                 ['ts_ls'] = {
                     -- detached = false,
@@ -140,8 +157,8 @@ return {
                             {
                                 name = '@vue/typescript-plugin',
                                 -- location = vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/language-server",
-                                location = vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/typescript-plugin",
-                                -- location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin',
+                                -- location = vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/typescript-plugin",
+                                location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin',
                                 languages = { 'javascript', 'typescript', 'vue' },
                             },
                         },
@@ -182,8 +199,8 @@ return {
                         globalPlugins = {
                             {
                                 name = '@vue/typescript-plugin',
-                                -- location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
-                                location = vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/language-server",
+                                location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                                -- location = vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/language-server",
                                 languages = { 'vue' },
                                 configNamespace = 'typescript',
                                 enableForWorkspaceTypeScriptVersions = true,
@@ -229,19 +246,19 @@ return {
             -- },
         })
         vim.lsp.config('vue_ls', {
-            cmd = {
-                vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/bin/node",
-                vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/language-server",
-                "--stdio"
-            },
+            -- cmd = {
+            --     vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/bin/node",
+            --     vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/language-server",
+            --     "--stdio"
+            -- },
             settings = {
                 vtsls = {
                     tsserver = {
                         globalPlugins = {
                             {
                                 name = '@vue/typescript-plugin',
-                                -- location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
-                                location = vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/language-server",
+                                location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                                -- location = vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/@vue/language-server",
                                 languages = { 'vue' },
                                 configNamespace = 'typescript',
                                 enableForWorkspaceTypeScriptVersions = true,
@@ -325,11 +342,11 @@ return {
 
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
         vim.lsp.config('html', {
-            cmd = {
-                vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/bin/node",
-                vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server",
-                "--stdio"
-            },
+            -- cmd = {
+            --     vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/bin/node",
+            --     vim.fn.expand("~") .. "/.nvm/versions/node/v22.16.0/lib/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server",
+            --     "--stdio"
+            -- },
             -- on_attach = on_attach,
             capabilities = capabilities,
             filetypes = { "html", "blade" },

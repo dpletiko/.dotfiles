@@ -1,0 +1,13 @@
+procs:
+  composer-install:
+    shell: "composer install"
+  composer-update:
+    shell: "composer update"
+  composer-dump-autoload:
+    shell: "composer dump-autoload"
+  dev:
+    shell: "npx concurrently --restart-tries=3 --restart-after=1000 -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+  dev-ssr:
+    shell: "npx concurrently --restart-tries=3 --restart-after=1000 -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr"
+  composer-test:
+    shell: "composer run test"

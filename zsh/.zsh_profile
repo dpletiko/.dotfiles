@@ -17,6 +17,8 @@ export DOTFILES=$HOME/.dotfiles
 
 export SUDO_EDITOR="nvim"
 
+export COLIMA_HOME=$HOME/.config/colima
+
 # addToPathFront $HOME/.zig
 # addToPathFront $HOME/.local/.npm-global/bin
 # addToPathFront $HOME/.local/scripts

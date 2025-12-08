@@ -102,14 +102,14 @@ return {
 
         local builtin = require('telescope.builtin')
 
-        vim.keymap.set('n', '<leader>pb', builtin.buffers, {})
+        vim.keymap.set('n', '<leader>pb', builtin.buffers, { desc = 'Telescope buffers' })
 
-        vim.keymap.set('n', '<leader>ph', builtin.help_tags, {})
-        vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+        -- vim.keymap.set('n', '<leader>ph', builtin.help_tags, {})
+        vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = 'Telescope help tags' })
 
-        vim.keymap.set('n', '<leader>pd', builtin.diagnostics, {})
-        vim.keymap.set('n', '<leader>pl', builtin.loclist, {})
-        vim.keymap.set('n', '<leader>pq', builtin.quickfix, {})
+        vim.keymap.set('n', '<leader>pd', builtin.diagnostics, { desc = 'Telescope diagnostics' })
+        vim.keymap.set('n', '<leader>pl', builtin.loclist, { desc = 'Telescope loclist' })
+        vim.keymap.set('n', '<leader>pq', builtin.quickfix, { desc = 'Telescope quickfix' })
 
         -- vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<leader>pf', function()
@@ -119,7 +119,8 @@ return {
                 )
             end
             builtin.find_files()
-        end)
+        end, { desc = 'Telescope find files' })
+
         vim.keymap.set('n', '<leader>pF', function()
             if vim.o.lines >= 80 then
                 return builtin.find_files(
@@ -130,34 +131,37 @@ return {
                 no_ignore = true,
                 hidden = true,
             })
-        end)
-        vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+        end, { desc = 'Telescope find files (no ignore)' })
+
+        vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope git files' })
 
         vim.keymap.set('n', '<leader>ps', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
-        end)
+        end, { desc = 'Telescope grep' })
 
         vim.keymap.set('n', '<leader>pw', function()
             builtin.grep_string({ search = vim.fn.expand("<cword>") })
-        end)
+        end, { desc = 'Telescope grep word' })
+
         vim.keymap.set('n', '<leader>pW', function()
             builtin.grep_string({ search = vim.fn.expand("<cWORD>") })
-        end)
+        end, { desc = 'Telescope grep WORD (non-whitespace)' })
 
         vim.keymap.set('n', '<leader>pg', function()
             builtin.live_grep()
-        end)
+        end, { desc = 'Telescope live grep' })
 
         vim.keymap.set("n", "<space>fb", function()
             telescope.extensions.file_browser.file_browser({
                 path = vim.fn.expand("%:p:h"),
                 select_buffer = true,
             })
-        end)
+        end, { desc = 'Telescope file browser' })
+
         vim.keymap.set('n', '<leader><leader>', function()
             telescope.extensions.recent_files.pick()
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = 'Telescope recent files' })
 
-        vim.keymap.set('n', '<leader>pn', '<cmd>Telescope neoclip<CR>')
+        vim.keymap.set('n', '<leader>pn', '<cmd>Telescope neoclip<CR>', { desc = 'Telescope neoclip' })
     end
 }

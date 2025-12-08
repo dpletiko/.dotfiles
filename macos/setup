@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+
+echo "Setting up..."
+
+echo "[BREW] Installing Homebrew..."
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+echo "[BREW] Installing cli apps..."
+brew install \
+  go \
+  git \
+  lazygit \
+  mprocs \
+  tmux \
+  fzf \
+  fd \
+  ripgrep \
+  luarocks \
+  btop \
+  docker \
+  docker-compose \
+  docker-buildx \
+  docker-credential-helper \
+  docker-machine \
+  docker-sync \
+  lazydocker \
+  colima \
+  cmake \
+  jq \
+  wget \
+  nvm \
+  yarn \
+  cmatrix \
+  coreutils \
+  luajit \
+  libmemcached \
+  memcached \
+  pkg-config;
+
+
+echo "[BREW CASK] Installing gui apps..."
+brew install --cask \
+  bitwarden \
+  google-chrome \
+  brave-browser \
+  firefox \
+  visual-studio-code \
+  iterm2 \
+  rectangle \
+  vlc \
+  maccy \
+  raycast \
+  keycastr \
+  wezterm;
+
+
+echo "[ZSH] Installing Oh My Zsh..."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+
+echo "[ZSH] Running oh my zsh update..."
+omz update
+
+echo "[ZSH] Sourcing '~/.zshrc'..."
+source ~/.zshrc
+
+
+echo "[NVM] Installing node versions..."
+: "${DEFAULT_NODE_VERSION:=22.16.0}"
+
+nvm install 8.17.0
+nvm install 21.2.0
+nvm install $DEFAULT_NODE_VERSION
+
+echo "[NVM] Setting default node version to $DEFAULT_NODE_VERSION..."
+nvm alias default 22.16.0
+
+
+echo "[FONTS] Installing fonts..."
+brew tap homebrew/cask
+brew install --cask font-jetbrains-mono-nerd-font
+# brew install --cask font-fantasque-sans-mono-nerd-font
+# brew install --cask font-iosevka-nerd-font
+
+
+echo "[WM] Installing AeroSpace..."
+brew install --cask nikitabobko/tap/aerospace
+xattr -d com.apple.quarantine /Applications/AeroSpace.epp
+
+brew tap FelixKratz/formulae
+brew install borders
+
+
+echo "[CARGO] Installing Cargo..."
+curl https://sh.rustup.rs -sSf | sh
+
+echo "[CARGO] Installing Cargo apps..."
+cargo install \
+    tmux-sessionizer
+
+
+echo "[BREW] Installing PHP lang and extensions..."
+brew install \
+    php \
+    php@8.3 \
+    libpq
+
+brew tap shivammathur/php
+brew install \
+    shivammathur/php/php@7.4
+
+brew link \
+    --overwrite \
+    --force \
+    shivammathur/php/php@7.4 \
+    libpq
+
+pecl install \
+    igbinary;
+
+MEMCACHED_WITH_IGBINARY=yes \
+MEMCACHED_WITH_JSON=yes \
+MEMCACHED_WITH_SASL=yes \
+MEMCACHED_LIBMEMCACHED_DIR=/opt/homebrew/opt \
+MEMCACHED_ZLIB_DIR=/opt/homebrew/opt \
+pecl install memcached;
+
+# pecl install \
+    # redis \
+    # xdebug \
+    # imagick;
+
+
+echo "[BREW] Installing fvm..."
+brew tap leoafarias/fvm
+brew install fvm
+
+
+echo "[COMPOSER] Installing Composer..."
+{
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'.PHP_EOL; } else { echo 'Installer corrupt'.PHP_EOL; unlink('composer-setup.php'); exit(1); }"
+    php composer-setup.php
+    php -r "unlink('composer-setup.php');"
+    sudo mv composer.phar /usr/local/bin/composer
+}
+
+
+echo "[COMPOSER] Installing Laravel Valet..."
+composer global require laravel/valet
+
+
+echo "[VALET] Installing Valet..."
+valet install
+

@@ -33,16 +33,16 @@ return {
                         type = "postgres",
                         url = "postgres://postgres:postgres@localhost:5433/?sslmode=disable",
                     }, {
-                    id = "pg_17",
-                    name = "pg_17",
-                    type = "postgres",
-                    url = "postgres://postgres:postgres@localhost:5432/?sslmode=disable",
-                }, {
-                    id = "postgis",
-                    name = "postgis",
-                    type = "postgres",
-                    url = "postgres://postgres:postgres@localhost:5434/?sslmode=disable",
-                },
+                        id = "pg_17",
+                        name = "pg_17",
+                        type = "postgres",
+                        url = "postgres://postgres:postgres@localhost:5432/?sslmode=disable",
+                    }, {
+                        id = "postgis",
+                        name = "postgis",
+                        type = "postgres",
+                        url = "postgres://postgres:postgres@localhost:5434/?sslmode=disable",
+                    },
                 }),
 
                 require("dbee.sources").EnvSource:new("DBEE_CONNECTIONS"),

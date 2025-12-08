@@ -1,6 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+setopt completealiases
+
+if type brew &>/dev/null; then
+    eval $(brew shellenv)
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -70,7 +76,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf git)
+plugins=(fzf git docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,7 +105,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
 
 source ~/.dotfiles/zsh/.zsh_profile
 
@@ -147,10 +152,23 @@ truncateMysqlDb() {
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /home/dpleti/.config/.dart-cli-completion/zsh-config.zsh ]] && . /home/dpleti/.config/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
 
+# export PHPENV_ROOT="/Users/dpleti/.phpenv"
+# if [ -d "${PHPENV_ROOT}" ]; then
+#   export PATH="${PHPENV_ROOT}/bin:${PATH}"
+#   eval "$(phpenv init -)"
+# fi
+
+
+PATH="/Users/dpleti/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/dpleti/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/dpleti/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/dpleti/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/dpleti/perl5"; export PERL_MM_OPT;
+export PATH=$PATH:~/Library/Android/sdk/platform-tools

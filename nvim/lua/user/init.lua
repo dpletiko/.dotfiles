@@ -16,7 +16,7 @@ autocmd('TextYankPost', {
     group = yank_group,
     pattern = '*',
     callback = function()
-        vim.highlight.on_yank({
+        vim.hl.on_yank({
             higroup = 'IncSearch',
             timeout = 40,
         })
@@ -54,7 +54,20 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "<leader>vi", function() vim.diagnostic.implementation() end, opts)
         vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
         vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+
+        vim.keymap.set("n", "<leader>vfa", function()
+            vim.lsp.buf.code_action({
+                context = {
+                    only = { "source.fixAll", "source.organizeImports" },
+                    diagnostics = vim.diagnostic.get(0), -- current buffer diagnostics
+                },
+                apply = true,
+            })
+        end, { desc = 'Fix all' })
+
         vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+        vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end, opts)
+
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
         vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)

@@ -1,5 +1,6 @@
 return {
     "tamago324/nlsp-settings.nvim",
+    enabled = false,
     dependencies = {
         "neovim/nvim-lspconfig",
         "mason-org/mason.nvim",
