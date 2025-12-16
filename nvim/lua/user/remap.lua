@@ -66,3 +66,19 @@ vim.keymap.set("n", "<leader>bp", '<cmd>bprevious<CR>', { desc = "Previous buffe
 vim.keymap.set("n", "<leader>bn", '<cmd>bnext<CR>', { desc = "Next buffer" })
 vim.keymap.set("n", "<leader>bf", '<cmd>bfirst<CR>', { desc = "First buffer" })
 vim.keymap.set("n", "<leader>bl", '<cmd>blast<CR>', { desc = "Last buffer" })
+
+-- Only enable OSC52 clipboard when SSHing
+if os.getenv("SSH_CONNECTION") or os.getenv("SSH_CLIENT") then
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
+  }
+end
+
