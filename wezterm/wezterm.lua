@@ -11,7 +11,7 @@ config.background = {
             hue = 1.0,
             saturation = 1.11,
             -- brightness = 1.00,
-            brightness = 0.025,
+            brightness = 0.0275,
         },
         width = '100%',
         height = '100%',
@@ -21,8 +21,8 @@ config.background = {
                 colors = { 'white', '#000000' },
                 orientation = {
                     Radial = {
-                        cx = 0.55,
-                        cy = 0.41,
+                        cx = 0.56,
+                        cy = 0.40,
                         -- radius = 1.25,
                         radius = 0.125,
                     },
@@ -31,7 +31,7 @@ config.background = {
         },
         width = '100%',
         height = '100%',
-        opacity = 0.125
+        opacity = 0.175
     }
 }
 
