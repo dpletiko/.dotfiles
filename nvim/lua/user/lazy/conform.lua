@@ -11,4 +11,7 @@ return {
         },
         stop_after_first = true,
     },
+    default_format_opts = {
+        lsp_format = "fallback",
+    },
 }
