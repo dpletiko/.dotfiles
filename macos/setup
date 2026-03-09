@@ -35,8 +35,14 @@ brew install \
   luajit \
   libmemcached \
   memcached \
-  pkg-config;
+  pkg-config \
+  pngpaste \
+  gh \
+  lynx;
 
+brew install \
+    chafa \
+    catimg;
 
 echo "[BREW CASK] Installing gui apps..."
 brew install --cask \
