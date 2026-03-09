@@ -15,7 +15,7 @@ return {
             },
             log_level = "info", -- set to "off" to disable logging completely
             disable_inline_completion = true, -- disables inline completion for use with cmp
-            disable_keymaps = true, -- disables built in keymaps for more manual control
+            disable_keymaps = not LOCAL.plugins.supermaven, -- disables built in keymaps for more manual control
             condition = function()
                 -- Conditionally disable supermaven for files
                 -- return string.match(vim.fn.expand("%:t"), "foo.sh")

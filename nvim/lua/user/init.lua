@@ -1,3 +1,6 @@
+local ok, local_cfg = pcall(require, "user.local")
+LOCAL = ok and local_cfg or {}
+
 require("user.set")
 require("user.remap")
 require("user.lazy_init")
@@ -25,6 +28,7 @@ end
 if not string.find(package.cpath, package_cpath_str, 1, true) then
     package.cpath = package_cpath_str .. ";" .. package.cpath
 end
+
 
 autocmd('TextYankPost', {
     group = yank_group,

@@ -1,0 +1,6 @@
+return {
+    plugins = {
+        copilot = false,
+        supermaven = false,
+    },
+}
