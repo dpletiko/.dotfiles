@@ -1,6 +1,8 @@
 return {
     "nvim-treesitter/nvim-treesitter",
 
+    branch = "master",
+
     dependencies = {
         "JoosepAlviste/nvim-ts-context-commentstring"
     },

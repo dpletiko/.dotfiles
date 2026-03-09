@@ -1,17 +1,35 @@
+local php = require("user.utils.php")
+
 return {
     'stevearc/conform.nvim',
     opts = {
-        log_level = vim.log.levels.DEBUG,
+        log_level = vim.log.levels.INFO,
         formatters_by_ft = {
-            -- Use a sub-list to run only the first available formatter
             vue = { "prettierd", "prettier" },
             typescript = { "prettierd", "prettier" },
             javascript = { "prettierd", "prettier" },
-            php = { "pint", "php_cs_fixer" },
+            php = function(bufnr)
+                local conform = require("conform")
+                local fmts = {}
+
+                if conform.get_formatter_info("pint", bufnr).available then
+                    if php.satisfies_min_version("8.1") then
+                        table.insert(fmts, "pint")
+                    end
+                end
+
+                if conform.get_formatter_info("php_cs_fixer", bufnr).available then
+                    if php.satisfies_min_version("7.4") then
+                        table.insert(fmts, "php_cs_fixer")
+                    end
+                end
+
+                return fmts
+            end,
         },
-        stop_after_first = true,
-    },
-    default_format_opts = {
-        lsp_format = "fallback",
+        default_format_opts = {
+            stop_after_first = true,
+            lsp_format = "fallback",
+        },
     },
 }

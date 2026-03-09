@@ -1,0 +1,15 @@
+rock_manifest = {
+   doc = {
+      ["CHANGELOG.md"] = "967a9dde1e1a927a3887cced1036b933",
+      LICENSE = "31a0963ca1b66065691cc341103d1e50",
+      ["README.md"] = "9170ac2ca31914aaa2b26edbd2bb6f7d"
+   },
+   lua = {
+      luarocks = {
+         build = {
+            ["rust-mlua.lua"] = "76040875bfaf48bd53ee4dea10ee2893"
+         }
+      }
+   },
+   ["luarocks-build-rust-mlua-0.2.7-1.rockspec"] = "ea1c31804df7e489be6c334d14d118bb"
+}

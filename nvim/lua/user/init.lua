@@ -3,13 +3,27 @@ require("user.remap")
 require("user.lazy_init")
 
 local augroup = vim.api.nvim_create_augroup
-local TheGroup = augroup('TheGroup', {})
-
 local autocmd = vim.api.nvim_create_autocmd
+local usercmd = vim.api.nvim_create_user_command
+
+local TheGroup = augroup('TheGroup', {})
 local yank_group = augroup('HighlightYank', {})
 
 function R(name)
     require("plenary.reload").reload_module(name)
+end
+
+-- Adjust paths for Neovim Lua
+local package_path_str = vim.fn.stdpath("config") .. "/luarocks/share/lua/5.1/?.lua;" ..
+                         vim.fn.stdpath("config") .. "/luarocks/share/lua/5.1/?/init.lua"
+local package_cpath_str = vim.fn.stdpath("config") .. "/luarocks/lib/lua/5.1/?.so"
+
+if not string.find(package.path, package_path_str, 1, true) then
+    package.path = package_path_str .. ";" .. package.path
+end
+
+if not string.find(package.cpath, package_cpath_str, 1, true) then
+    package.cpath = package_cpath_str .. ";" .. package.cpath
 end
 
 autocmd('TextYankPost', {
@@ -136,6 +150,12 @@ vim.g.python_recommended_style = 0
 
 -- vim.g.netrw_keepdir = 0
 vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
+vim.g.netrw_winsize = 75
+vim.g.netrw_winwidth = 25
 -- vim.g.netrw_liststyle = 3
 vim.g.netrw_browse_split = 0
+vim.g.netrw_altv = 1
+vim.g.netrw_preview = 1
+
+vim.o.splitbelow = false
+vim.o.splitright = true

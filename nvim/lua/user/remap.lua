@@ -3,6 +3,23 @@ vim.g.maplocalleader = "\\"
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>pV", vim.cmd.Vex)
+-- vim.keymap.set("n", "<leader>pL", vim.cmd.Lex)
+vim.keymap.set("n", "<leader>pL", function()
+  -- Save current values
+  local old_winsize = vim.g.netrw_winsize
+  local old_browse_split = vim.g.netrw_browse_split
+
+  -- Set Lex-specific values
+  vim.g.netrw_winsize = 25
+  vim.g.netrw_browse_split = 4
+
+  -- Open Lex in current file's directory
+  vim.cmd("Lexplore %:p:h")
+
+  -- Restore original values
+  vim.g.netrw_winsize = old_winsize
+  vim.g.netrw_browse_split = old_browse_split
+end)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "ALT-Down", ":m '>+1<CR>gv=gv")

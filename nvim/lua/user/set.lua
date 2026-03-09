@@ -38,3 +38,5 @@ vim.opt.updatetime = 100
 -- vim.opt.wildmode = "list:longest"
 
 -- vim.opt.completeopt = "menu,menuone,noinsert,noselect"
+
+vim.o.completeopt = "menu,menuone,noselect,noinsert,popup"

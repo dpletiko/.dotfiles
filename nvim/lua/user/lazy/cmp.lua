@@ -101,6 +101,7 @@ return {
         -- ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       }),
       sources = cmp.config.sources({
+        { name = "copilot" },
         { name = "supermaven" },
         { name = "nvim_lsp" },
         { name = "lazydev" },

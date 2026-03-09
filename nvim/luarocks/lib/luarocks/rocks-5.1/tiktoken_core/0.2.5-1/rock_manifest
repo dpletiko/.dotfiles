@@ -1,0 +1,9 @@
+rock_manifest = {
+   doc = {
+      LICENSE = "3613f61cdf6aacf7dd52b1232cbc79d9"
+   },
+   lib = {
+      ["tiktoken_core.so"] = "d8638021d0ede3296c2fbd326aa3c22c"
+   },
+   ["tiktoken_core-0.2.5-1.rockspec"] = "51a2b8c283fabc07c9274e28d9562cee"
+}
