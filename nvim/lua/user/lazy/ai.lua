@@ -7,7 +7,7 @@ local host = vim.fn.hostname()
 return {
     {
         "github/copilot.vim",
-        enabled = LOCAL.plugins.copilot,
+        enabled = LOCAL.plugins.copilot ~= false,
         init = function()
             vim.g.copilot_no_tab_map = true
             vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<S-Tab>")', {
@@ -24,7 +24,7 @@ return {
     {
         "olimorris/codecompanion.nvim",
         version = "^18.0.0",
-        enabled = LOCAL.plugins.codecompanion,
+        enabled = LOCAL.plugins.codecompanion ~= false,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
@@ -193,7 +193,7 @@ return {
     -- ============================================================================
     {
         "yetone/avante.nvim",
-        enabled = LOCAL.plugins.avante,
+        enabled = LOCAL.plugins.avante ~= false,
         event = "VeryLazy",
         version = false, -- Never set this value to "*"! Never!
         build = vim.fn.has("win32") ~= 0
@@ -326,7 +326,7 @@ return {
     -- ============================================================================
     {
         "jackMort/ChatGPT.nvim",
-        enabled = LOCAL.plugins.chatgpt,
+        enabled = LOCAL.plugins.chatgpt ~= false,
         event = "VeryLazy",
         dependencies = {
             "MunifTanjim/nui.nvim",
