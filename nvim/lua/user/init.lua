@@ -1,9 +1,17 @@
-local path = vim.fn.stdpath("config") .. "/lua/local.lua"
-local template = vim.fn.stdpath("config") .. "/lua/local.lua.example"
+local local_config = vim.fn.stdpath("config") .. "/lua/user/local.lua"
+local local_config_tpl = vim.fn.stdpath("config") .. "/lua/user/local.lua.example"
 
-if vim.fn.filereadable(path) == 0 then
-    if vim.fn.copyfile(template, path) == 1 then
-        vim.notify("Created lua/local.lua from template")
+-- auto-create local.lua if missing
+if vim.fn.filereadable(local_config) == 0 then
+    local src = io.open(local_config_tpl, "r")
+    local dst = io.open(local_config, "w")
+    if src and dst then
+        dst:write(src:read("*a"))
+        src:close()
+        dst:close()
+        vim.notify("Created lua/user/local.lua from template")
+    else
+        vim.notify("Failed to create local.lua", vim.log.levels.ERROR)
     end
 end
 
