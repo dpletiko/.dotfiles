@@ -1,5 +1,14 @@
+local path = vim.fn.stdpath("config") .. "/lua/local.lua"
+local template = vim.fn.stdpath("config") .. "/lua/local.lua.example"
+
+if vim.fn.filereadable(path) == 0 then
+    if vim.fn.copyfile(template, path) == 1 then
+        vim.notify("Created lua/local.lua from template")
+    end
+end
+
 local ok, local_cfg = pcall(require, "user.local")
-LOCAL = ok and local_cfg or {}
+LOCAL = ok and local_cfg or {plugins = {}}
 
 require("user.set")
 require("user.remap")

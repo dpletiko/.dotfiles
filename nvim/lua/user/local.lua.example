@@ -1,6 +1,14 @@
+-- This table configures local flags
+
+-- return {
+--     plugins = {
+--         copilot = false,
+--         supermaven = false,
+--     },
+-- }
+
 return {
     plugins = {
-        copilot = false,
-        supermaven = false,
+
     },
 }
