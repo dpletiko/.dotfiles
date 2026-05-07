@@ -179,3 +179,6 @@ for f in ~/.dotfiles/zsh/host/$HOST/*.zsh(N); do [[ -f $f ]] && source "$f"; don
 # Architecture
 # for f in ~/.dotfiles/zsh/arch/$ARCH/*.zsh(N); do [[ -f $f ]] && source "$f"; done
 
+
+# opencode
+export PATH=/Users/dpleti/.opencode/bin:$PATH
