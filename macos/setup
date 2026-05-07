@@ -15,6 +15,7 @@ brew install \
   fzf \
   fd \
   ripgrep \
+  luajit \
   luarocks \
   btop \
   docker \
@@ -32,17 +33,18 @@ brew install \
   yarn \
   cmatrix \
   coreutils \
-  luajit \
   libmemcached \
   memcached \
   pkg-config \
   pngpaste \
+  imagemagick \
+  chafa \
+  catimg \
   gh \
-  lynx;
-
-brew install \
-    chafa \
-    catimg;
+  lynx \
+  gettext \
+  libffi \
+  ffmpeg;
 
 echo "[BREW CASK] Installing gui apps..."
 brew install --cask \
@@ -101,8 +103,18 @@ curl https://sh.rustup.rs -sSf | sh
 
 echo "[CARGO] Installing Cargo apps..."
 cargo install \
-    tmux-sessionizer
+    tree-sitter-cli \
+    tmux-sessionizer \
+    netwatch-tui
 
+echo "[NVIM] Installing Neovim..."
+{
+    wget -P /opt/ https://github.com/neovim/neovim/releases/download/v0.12.2/nvim-macos-arm64.tar.gz
+    xattr -c ./nvim-macos-x86_64.tar.gz
+    tar xzvf nvim-macos-x86_64.tar.gz
+    mv nvim nvim-bak
+    mv nvim-macos-x86_64 nvim
+}
 
 echo "[BREW] Installing PHP lang and extensions..."
 brew install \
@@ -123,12 +135,12 @@ brew link \
 pecl install \
     igbinary;
 
-MEMCACHED_WITH_IGBINARY=yes \
-MEMCACHED_WITH_JSON=yes \
-MEMCACHED_WITH_SASL=yes \
-MEMCACHED_LIBMEMCACHED_DIR=/opt/homebrew/opt \
-MEMCACHED_ZLIB_DIR=/opt/homebrew/opt \
-pecl install memcached;
+# MEMCACHED_WITH_IGBINARY=yes \
+# MEMCACHED_WITH_JSON=yes \
+# MEMCACHED_WITH_SASL=yes \
+# MEMCACHED_LIBMEMCACHED_DIR=/opt/homebrew/opt \
+# MEMCACHED_ZLIB_DIR=/opt/homebrew/opt \
+# pecl install memcached;
 
 # pecl install \
     # redis \
