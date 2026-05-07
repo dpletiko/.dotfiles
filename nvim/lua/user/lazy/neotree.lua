@@ -29,9 +29,37 @@ return {
                     enabled = true,
                     leave_dirs_open = true
                 },
+                -- hijack_netrw_behavior = "open_current", -- netrw disabled, opening a directory opens neo-tree
                 hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+                -- hijack_netrw_behavior = "disabled", -- netrw disabled, opening a directory opens neo-tree
+                commands = {
+                    avante_add_files = function(state)
+                        local node = state.tree:get_node()
+                        local filepath = node:get_id()
+                        local relative_path = require('avante.utils').relative_path(filepath)
+
+                        local sidebar = require('avante').get()
+
+                        local open = sidebar:is_open()
+                        -- ensure avante sidebar is open
+                        if not open then
+                            require('avante.api').ask()
+                            sidebar = require('avante').get()
+                        end
+
+                        sidebar.file_selector:add_selected_file(relative_path)
+
+                        -- remove neo tree buffer
+                        if not open then
+                            sidebar.file_selector:remove_selected_file('neo-tree filesystem [1]')
+                        end
+                    end,
+                },
                 window = {
-                    width = 42
+                    width = 42,
+                    mappings = {
+                        ['oa'] = 'avante_add_files',
+                    },
                 },
             },
             buffers = {
@@ -41,6 +69,37 @@ return {
                 },
             },
         },
+        init = function()
+            -- vim.api.nvim_create_autocmd('BufEnter', {
+            --   group    = vim.api.nvim_create_augroup('RemoteFileInit', {clear = true}),
+            --   callback = function()
+            --     local f = vim.fn.expand('%:p')
+            --     for _, v in ipairs{'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync', 'scp', 'sftp'} do
+            --       local p = v .. '://'
+            --       if f:sub(1, #p) == p then
+            --         vim.cmd[[
+            --           unlet g:loaded_netrw
+            --           unlet g:loaded_netrwPlugin
+            --           runtime! plugin/netrwPlugin.vim
+            --           silent Explore %
+            --         ]]
+            --         break
+            --       end
+            --     end
+            --     vim.api.nvim_clear_autocmds{group = 'RemoteFileInit'}
+            --   end
+            -- })
+            -- vim.api.nvim_create_autocmd('BufEnter', {
+            --   group = vim.api.nvim_create_augroup('NeoTreeInit', {clear = true}),
+            --   callback = function()
+            --     local f = vim.fn.expand('%:p')
+            --     if vim.fn.isdirectory(f) ~= 0 then
+            --       vim.cmd('Neotree current dir=' .. f)
+            --       vim.api.nvim_clear_autocmds{group = 'NeoTreeInit'}
+            --     end
+            --   end
+            -- })
+        end,
         keys = {
             { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle NeoTree Explorer" },
         },

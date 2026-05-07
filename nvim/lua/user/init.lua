@@ -21,6 +21,7 @@ LOCAL = ok and local_cfg or {plugins = {}}
 require("user.set")
 require("user.remap")
 require("user.lazy_init")
+require('vim._core.ui2').enable({})
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
@@ -46,6 +47,7 @@ if not string.find(package.cpath, package_cpath_str, 1, true) then
     package.cpath = package_cpath_str .. ";" .. package.cpath
 end
 
+ColorMyPencils('gruvbox')
 
 autocmd('TextYankPost', {
     group = yank_group,
@@ -80,15 +82,36 @@ autocmd("FileType", {
 autocmd('LspAttach', {
     group = TheGroup,
     callback = function(e)
+        local client_id = e.data.client_id
+        if not client_id then
+            return
+        end
+
+        -- local client = vim.lsp.get_client_by_id(client_id)
+        -- if client and client:supports_method("textDocument/completion") then
+        --     -- Enable native LSP completion for this client + buffer
+        --     vim.lsp.completion.enable(true, client_id, e.buf, {
+        --         autotrigger = true,   -- auto-show menu as you type (recommended)
+        --         -- You can also set { autotrigger = false } and trigger manually with <C-x><C-o>
+        --     })
+        -- end
+
         local opts = { buffer = e.buf }
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
         vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-        vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+
+        -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+        -- vim.keymap.set("n", "<leader>vi", function() vim.diagnostic.implementation() end, opts)
+        -- vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float({ focusable = true }) end, opts)
-        vim.keymap.set("n", "<leader>vi", function() vim.diagnostic.implementation() end, opts)
         vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-        vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+
+        vim.keymap.set("n", "<leader>vws", '<cmd>:Telescope lsp_workspace_symbols<CR>', opts)
+        vim.keymap.set("n", "<leader>vs", '<cmd>:Telescope lsp_document_symbols<CR>', opts)
+        vim.keymap.set("n", "<leader>vi", '<cmd>:Telescope lsp_implementations<CR>', opts)
+        vim.keymap.set("n", "<leader>vrr", '<cmd>:Telescope lsp_references<CR>', opts)
+
 
         vim.keymap.set("n", "<leader>vfa", function()
             vim.lsp.buf.code_action({

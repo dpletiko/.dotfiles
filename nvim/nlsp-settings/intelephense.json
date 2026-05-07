@@ -1,0 +1,9 @@
+{
+    "intelephense.format.braces": "k&r",
+    "intelephense": {
+        "format": {
+            "enable": true,
+            "braces": "k&r"
+        }
+    }
+}

@@ -28,6 +28,11 @@ return {
             sources = {
                 require("dbee.sources").MemorySource:new({
                     {
+                        id = "mysql",
+                        name = "mysql",
+                        type = "mysql",
+                        url = "root:secret@tcp(127.0.0.1:3306)/",
+                    }, {
                         id = "pg_13",
                         name = "pg_13",
                         type = "postgres",

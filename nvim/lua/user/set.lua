@@ -40,3 +40,4 @@ vim.opt.updatetime = 100
 -- vim.opt.completeopt = "menu,menuone,noinsert,noselect"
 
 vim.o.completeopt = "menu,menuone,noselect,noinsert,popup"
+

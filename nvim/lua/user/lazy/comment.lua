@@ -5,7 +5,10 @@ return {
         "JoosepAlviste/nvim-ts-context-commentstring"
     },
     config = function()
-        local prehook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
+        require('ts_context_commentstring').setup {
+            enable_autocmd = false,
+        }
+
         require("Comment").setup({
             padding = true,
             sticky = true,
@@ -28,9 +31,13 @@ return {
                 extra = true,
                 extended = false,
             },
-            pre_hook = prehook,
+            pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
             post_hook = nil,
         })
+
+        local ft = require("Comment.ft")
+        ft.set("env", { "#%s" })
+
     end,
     -- opts = {
     --     toggler = {
