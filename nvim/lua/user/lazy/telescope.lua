@@ -20,12 +20,11 @@ return {
 
         "nvim-telescope/telescope-dap.nvim",
         "nvim-telescope/telescope-node-modules.nvim",
-        "smartpde/telescope-recent-files",
         "nvim-telescope/telescope-file-browser.nvim",
-
         'nvim-telescope/telescope-ui-select.nvim',
 
         -- "nvim-telescope/telescope-live-grep-args.nvim",
+        -- "smartpde/telescope-recent-files",
     },
 
     extensions = {
@@ -53,6 +52,9 @@ return {
                     -- your custom normal mode mappings
                 },
             },
+        },
+        recent_files = {
+            only_cwd = true,
         },
         ["ui-select"] = {
             require("telescope.themes").get_dropdown {
@@ -224,7 +226,7 @@ return {
                 --             vertical = {
                 --                 top_left = "├",
                 --                 top_right = "┤",
-                --             },
+                --             }
                 --         },
                 --         prompt = {
                 --             top_left = "├",
@@ -460,7 +462,7 @@ return {
         telescope.load_extension("flutter")
         telescope.load_extension("dap")
         telescope.load_extension("node_modules")
-        telescope.load_extension("recent_files")
+        -- telescope.load_extension("recent_files")
         telescope.load_extension("file_browser")
         -- telescope.load_extension("ui-select")
 
@@ -506,8 +508,12 @@ return {
         end, { desc = 'Telescope file browser' })
 
         vim.keymap.set('n', '<leader><leader>', function()
-            telescope.extensions.recent_files.pick()
-        end, { noremap = true, silent = true, desc = 'Telescope recent files' })
+            builtin.oldfiles({
+                cwd = vim.fn.getcwd(),
+                only_cwd = true,
+            })
+            -- telescope.extensions.recent_files.pick()
+        end, { desc = 'Telescope recent files' })
 
         vim.keymap.set('n', '<leader>pn', '<cmd>Telescope neoclip<CR>', { desc = 'Telescope neoclip' })
     end
