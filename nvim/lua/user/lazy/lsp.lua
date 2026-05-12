@@ -72,6 +72,7 @@ return {
 				"twigcs",
 				"twig-cs-fixer",
 				"blade-formatter",
+				'dart-debug-adapter',
 			},
 		})
 
