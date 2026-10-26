@@ -3,6 +3,12 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
 			"JoosepAlviste/nvim-ts-context-commentstring",
+			{
+				"folke/ts-comments.nvim",
+				opts = {},
+				event = "VeryLazy",
+				enabled = vim.fn.has("nvim-0.10.0") == 1,
+			},
 		},
 		lazy = false,
 		build = ":TSUpdate",
@@ -43,6 +49,12 @@ return {
 				"blade",
 				"dockerfile",
 				"twig",
+				"ruby",
+				"latex",
+				"yaml",
+				"svelte",
+				"tsx",
+				"typst",
 			})
 		end,
 	},
@@ -180,12 +192,12 @@ return {
 				require("nvim-treesitter-textobjects.select").select_textobject("@local.scope", "locals")
 			end)
 
-			vim.keymap.set("n", "<leader>a", function()
-				require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
-			end)
-			vim.keymap.set("n", "<leader>A", function()
-				require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.outer")
-			end)
+			-- vim.keymap.set("n", "<leader>a", function()
+			-- 	require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
+			-- end)
+			-- vim.keymap.set("n", "<leader>A", function()
+			-- 	require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.outer")
+			-- end)
 
 			vim.keymap.set({ "n", "x", "o" }, "]o", function()
 				require("nvim-treesitter-textobjects.move").goto_next_start(
@@ -218,6 +230,53 @@ return {
 			vim.keymap.set({ "n", "x", "o" }, "[d", function()
 				require("nvim-treesitter-textobjects.move").goto_previous("@conditional.outer", "textobjects")
 			end)
+
+			vim.keymap.set({ "n", "x", "o" }, "]z", function()
+				require("nvim-treesitter-textobjects.move").goto_next_start("@fold", "folds")
+			end)
+			vim.keymap.set({ "n", "x", "o" }, "]Z", function()
+				require("nvim-treesitter-textobjects.move").goto_next_end("@fold", "folds")
+			end)
+			vim.keymap.set({ "n", "x", "o" }, "[z", function()
+				require("nvim-treesitter-textobjects.move").goto_previous_start("@fold", "folds")
+			end)
+			vim.keymap.set({ "n", "x", "o" }, "[Z", function()
+				require("nvim-treesitter-textobjects.move").goto_previous_end("@fold", "folds")
+			end)
+		end,
+	},
+
+	{
+		"Wansmer/treesj",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"AndrewRadev/splitjoin.vim",
+		},
+		-- keys = {
+		-- 	"<space>m",
+		-- 	"<space>j",
+		-- 	"<space>s",
+		-- },
+		config = function()
+			require("treesj").setup({
+				use_default_keymaps = false,
+			})
+
+			local langs = require("treesj.langs")["presets"]
+
+			vim.api.nvim_create_autocmd({ "FileType" }, {
+				pattern = "*",
+				callback = function()
+					local opts = { buffer = true }
+					if langs[vim.bo.filetype] then
+						vim.keymap.set("n", "gS", "<Cmd>TSJSplit<CR>", opts)
+						vim.keymap.set("n", "gJ", "<Cmd>TSJJoin<CR>", opts)
+					else
+						vim.keymap.set("n", "gS", "<Cmd>SplitjoinSplit<CR>", opts)
+						vim.keymap.set("n", "gJ", "<Cmd>SplitjoinJoin<CR>", opts)
+					end
+				end,
+			})
 		end,
 	},
 }

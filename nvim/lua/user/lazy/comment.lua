@@ -37,6 +37,7 @@ return {
 
         local ft = require("Comment.ft")
         ft.set("env", { "#%s" })
+        -- ft.set("ruby", { "# %s" })
 
     end,
     -- opts = {

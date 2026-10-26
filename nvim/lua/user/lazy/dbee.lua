@@ -25,6 +25,9 @@ return {
     end,
     config = function()
         require("dbee").setup({
+            result = {
+                -- max_column_width = 80
+            },
             sources = {
                 require("dbee.sources").MemorySource:new({
                     {
@@ -32,21 +35,21 @@ return {
                         name = "mysql",
                         type = "mysql",
                         url = "root:secret@tcp(127.0.0.1:3306)/",
-                    }, {
-                        id = "pg_13",
-                        name = "pg_13",
-                        type = "postgres",
-                        url = "postgres://postgres:postgres@localhost:5433/?sslmode=disable",
+                    -- }, {
+                    --     id = "pg_13",
+                    --     name = "pg_13",
+                    --     type = "postgres",
+                    --     url = "postgres://postgres:postgres@localhost:5433/?sslmode=disable",
                     }, {
                         id = "pg_17",
                         name = "pg_17",
                         type = "postgres",
-                        url = "postgres://postgres:postgres@localhost:5432/?sslmode=disable",
+                        url = "postgres://postgres:gr3sPost17!@localberg:5432/?sslmode=disable",
                     }, {
                         id = "postgis",
                         name = "postgis",
                         type = "postgres",
-                        url = "postgres://postgres:postgres@localhost:5434/?sslmode=disable",
+                        url = "postgres://postgres:g1sPost17!@localberg:5434/?sslmode=disable",
                     },
                 }),
 

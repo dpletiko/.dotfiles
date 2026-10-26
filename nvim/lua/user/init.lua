@@ -15,9 +15,6 @@ if vim.fn.filereadable(local_config) == 0 then
     end
 end
 
-local ok, local_cfg = pcall(require, "user.local")
-LOCAL = ok and local_cfg or {plugins = {}}
-
 require("user.set")
 require("user.remap")
 require("user.lazy_init")
@@ -65,6 +62,37 @@ autocmd({"BufWritePre"}, {
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
+
+usercmd("OnlyNeoTree", function()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buflisted and vim.bo[buf].filetype ~= "neo-tree" then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+end, { desc = "Close all buffers except Neo-tree" })
+
+usercmd("CloseCurrentBuffer", function()
+  local current_win = vim.api.nvim_get_current_win()
+  local current_buf = vim.api.nvim_win_get_buf(current_win)
+
+  local buf_to_delete = current_buf
+
+  -- If Neo-tree is focused, find another window's buffer.
+  if vim.bo[current_buf].filetype == "neo-tree" then
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      if vim.bo[buf].filetype ~= "neo-tree" then
+        buf_to_delete = buf
+        break
+      end
+    end
+  end
+
+  -- Don't delete Neo-tree itself.
+  if vim.bo[buf_to_delete].filetype ~= "neo-tree" then
+    vim.api.nvim_buf_delete(buf_to_delete, { force = true })
+  end
+end, { desc = "Close current buffer (except neo-tree)" })
 
 local IndentGruop = augroup("IndentSettings", {})
 autocmd("FileType", {
@@ -187,8 +215,8 @@ autocmd('FileType', {
 })
 
 -- vim.g.node_host_prog = '~/.nvm/versions/node/v22.16.0/lib/node_modules'
-vim.g.node_host_prog = '~/.nvm/versions/node/v22.16.0/bin/neovim-node-host'
-vim.g.copilot_node_command = '~/.nvm/versions/node/v22.16.0/bin/node'
+vim.g.node_host_prog = '~/.nvm/versions/node/v24.18.0/bin/neovim-node-host'
+vim.g.copilot_node_command = '~/.nvm/versions/node/v24.18.0/bin/node'
 
 vim.g.python_recommended_style = 0
 

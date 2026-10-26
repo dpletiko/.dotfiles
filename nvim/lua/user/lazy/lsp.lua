@@ -34,7 +34,8 @@ return {
 		require("mason-lspconfig").setup({
 			automatic_enable = {
 				exclude = {
-					-- 'phpactor'
+					'phpactor',
+					'psalm',
 				},
 			},
 			ensure_installed = {
@@ -45,7 +46,9 @@ return {
 				"stylua",
 				"rust_analyzer",
 				"intelephense",
+				"phpantom_lsp",
 				"phpactor",
+				"psalm",
 				"ansiblels",
 				"yamlls",
 				"docker_compose_language_service",
@@ -60,6 +63,7 @@ return {
 				"somesass_ls",
 				"tailwindcss",
 				"twiggy_language_server",
+			    "lemminx",
 			},
 		})
 		require("mason-tool-installer").setup({
@@ -150,8 +154,8 @@ return {
 				phpactor = {},
 			},
 		})
-		vim.lsp.config("phpantom", {
-			cmd = { vim.fn.expand("~") .. "/dev/phpantom_lsp/target/release/phpantom_lsp" },
+		vim.lsp.config("phpantom_lsp", {
+			-- cmd = { vim.fn.expand("~") .. "/dev/phpantom_lsp/target/release/phpantom_lsp" },
 			filetypes = { "php" },
 			root_markers = { "composer.json", ".git" },
 		})
@@ -206,6 +210,7 @@ return {
 			}),
 			settings = {
 				vtsls = {
+                    autoUseWorkspaceTsdk = true,
 					enableMoveToFileCodeAction = true,
 					experimental = {
 						maxInlayHintLength = 30,
@@ -383,6 +388,14 @@ return {
 				},
 			},
 		})
+
+        vim.lsp.config("lemminx", {
+            cmd = { vim.fn.stdpath("data") .. "/mason/bin/lemminx" },
+            filetypes = { 'xml', 'xsd', 'xsl', 'xslt', 'svg' },
+            -- root_dir = function(bufnr, on_dir)
+            --     on_dir(vim.fn.getcwd())
+            -- end,
+        })
 
 		vim.diagnostic.config({
 			virtual_text = true, -- TODO: Verify my config value

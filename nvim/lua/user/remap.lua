@@ -21,7 +21,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -52,32 +52,38 @@ vim.keymap.set("n", "<leader><CR>", ":so $MYVIMRC<CR>")
 -- vim.keymap.set("<C-e>", ":copen<CR>")
 -- vim.keymap.set("<C-x>", ":cclose<CR>")
 -- vim.keymap.set("n","<C-l>", ":cex []<CR>")
-vim.keymap.set("n", "<C-x>", function()
-    local win = vim.api.nvim_get_current_win()
-    local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
-    local action = qf_winid > 0 and 'cclose' or 'copen'
-    vim.cmd(action)
+vim.keymap.set("n", "<leader>q", function()
+	local win = vim.api.nvim_get_current_win()
+	local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+	local action = qf_winid > 0 and "cclose" or "copen"
+	vim.cmd(action)
 end)
 
+vim.keymap.set("n", "<leader>w", function()
+	require("mini.bufremove").delete(0)
+end, { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>W", ":OnlyNeoTree<CR>", { desc = "Close all buffers except neo-tree" })
 
-
-vim.keymap.set("n", "<leader>bp", '<cmd>bprevious<CR>', { desc = "Previous buffer" })
-vim.keymap.set("n", "<leader>bn", '<cmd>bnext<CR>', { desc = "Next buffer" })
-vim.keymap.set("n", "<leader>bf", '<cmd>bfirst<CR>', { desc = "First buffer" })
-vim.keymap.set("n", "<leader>bl", '<cmd>blast<CR>', { desc = "Last buffer" })
+vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>bf", "<cmd>bfirst<CR>", { desc = "First buffer" })
+vim.keymap.set("n", "<leader>bl", "<cmd>blast<CR>", { desc = "Last buffer" })
 
 -- Only enable OSC52 clipboard when SSHing
 if os.getenv("SSH_CONNECTION") or os.getenv("SSH_CLIENT") then
-  vim.g.clipboard = {
-    name = 'OSC 52',
-    copy = {
-      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-    },
-    paste = {
-      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-    },
-  }
+	vim.g.clipboard = {
+		name = "OSC 52",
+		copy = {
+			["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+		},
+		paste = {
+			["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+			["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+		},
+	}
 end
 
+-- You may want these if you use the opinionated `<C-a>` and `<C-x>` keymaps above — otherwise consider `<leader>o…` (and remove terminal mode from the `toggle` keymap)
+vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
+vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
