@@ -40,11 +40,14 @@ brew install \
   imagemagick \
   chafa \
   catimg \
-  gh \
   lynx \
   gettext \
   libffi \
-  ffmpeg;
+  ffmpeg \
+  duf \
+  tree-sitter-cli \
+  tectonic \
+  ghostscript;
 
 echo "[BREW CASK] Installing gui apps..."
 brew install --cask \
@@ -101,9 +104,11 @@ brew install borders
 echo "[CARGO] Installing Cargo..."
 curl https://sh.rustup.rs -sSf | sh
 
+echo "[CARGO] Installing Cargo Binstall..."
+curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+
 echo "[CARGO] Installing Cargo apps..."
 cargo install \
-    tree-sitter-cli \
     tmux-sessionizer \
     netwatch-tui
 
