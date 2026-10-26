@@ -47,7 +47,7 @@ brew install \
   duf \
   tree-sitter-cli \
   tectonic \
-  ghostscript;
+  ghostscript ;
 
 echo "[BREW CASK] Installing gui apps..."
 brew install --cask \
@@ -62,7 +62,8 @@ brew install --cask \
   maccy \
   raycast \
   keycastr \
-  wezterm;
+  wezterm \
+  t3-code;
 
 
 echo "[ZSH] Installing Oh My Zsh..."
@@ -76,7 +77,7 @@ source ~/.zshrc
 
 
 echo "[NVM] Installing node versions..."
-: "${DEFAULT_NODE_VERSION:=22.16.0}"
+: "${DEFAULT_NODE_VERSION:=24.18.0}"
 
 nvm install 8.17.0
 nvm install 21.2.0
@@ -174,4 +175,10 @@ composer global require laravel/valet
 
 echo "[VALET] Installing Valet..."
 valet install
+
+echo "[OPENCODE] Installing OpenCode..."
+curl -fsSL https://opencode.ai/v2/install | bash
+
+echo "[T3CODE] Installing T3Code..."
+curl -fsSL https://t3.codes/install.sh | sh
 
