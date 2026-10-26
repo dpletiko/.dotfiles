@@ -1,6 +1,17 @@
 return {
     "folke/trouble.nvim",
-    opts = {},
+    opts = {
+        modes = {
+            symbols= {
+                win = {
+                    type = "split",
+                    relative = "win",
+                    position = "right",
+                    size = 0.3
+                }
+            }
+        },
+    },
     cmd = "Trouble",
     keys = {
         {

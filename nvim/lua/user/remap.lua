@@ -36,12 +36,12 @@ vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Set executable permission" })
 
 -- Write with sudo ":w!!"
 vim.keymap.set("c", "w!!", "w !sudo tee % >/dev/null")
 
-vim.keymap.set("n", "<leader><CR>", ":so $MYVIMRC<CR>")
+vim.keymap.set("n", "<leader><CR>", ":so $MYVIMRC<CR>", { desc = "Reload vimrc" })
 -- vim.keymap.set("n", "<leader><leader>", function()
 --     vim.cmd("so")
 -- end)
@@ -53,11 +53,11 @@ vim.keymap.set("n", "<leader><CR>", ":so $MYVIMRC<CR>")
 -- vim.keymap.set("<C-x>", ":cclose<CR>")
 -- vim.keymap.set("n","<C-l>", ":cex []<CR>")
 vim.keymap.set("n", "<leader>q", function()
-	local win = vim.api.nvim_get_current_win()
+	-- local win = vim.api.nvim_get_current_win()
 	local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
 	local action = qf_winid > 0 and "cclose" or "copen"
 	vim.cmd(action)
-end)
+end, { desc = "Toggle quickfix list" })
 
 vim.keymap.set("n", "<leader>w", function()
 	require("mini.bufremove").delete(0)

@@ -45,8 +45,8 @@ return {
 			-- this file can contain specific instructions for your project
 			instructions_file = "avante.md",
 
-			-- provider = "ollama",
-			provider = "copilot",
+			provider = "ollama",
+			-- provider = "copilot",
 			providers = {
 				ollama_6b = {
 					["local"] = true,
