@@ -42,13 +42,47 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-background-opacity = 1.0
-
-font-size = 13
-
-font-feature = -calt
-font-feature = -dlig
-font-feature = -liga
 
 # Remove default binding for new window (Ctrl+Shift+N)
 keybind = ctrl+shift+n=unbind
+
+
+# Background image
+background-image = ~/.dotfiles/pics/omao-shaded-gradient.png
+background-image-opacity = 1.0
+background-image-fit = cover
+background-image-fit = stretch
+background-image-position = center
+background-opacity = 1.0
+
+# Theme
+theme = Gruvbox Dark
+theme = Monokai SublimeText
+theme = Wez
+
+# Font
+font-family = JetBrainsMono Nerd Font
+font-size = 13
+font-feature = -calt
+font-feature = -clig
+font-feature = -liga
+
+# Window size
+initial-window = true
+window-width = 120
+window-height = 28
+
+# Window padding
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+
+
+# Window decorations
+window-decoration = auto
+macos-titlebar-style = hidden
+
+# Keyboard
+macos-option-as-alt = left
+keybind = alt+left=unbind
+keybind = alt+right=unbind
