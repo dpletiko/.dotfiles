@@ -77,8 +77,6 @@ return {
 		local lga_actions = require("telescope-live-grep-args.actions")
 
 		layout_strategies.dynamic = function(self, max_columns, max_lines, layout_config)
-			print(max_columns, max_lines)
-
 			if max_columns < max_lines * 3 then
 				self.__flex_strategy = "vertical"
 				self.layout_config.flip_columns = nil
@@ -101,54 +99,6 @@ return {
 		table.insert(vimgrep_arguments, "--glob")
 		table.insert(vimgrep_arguments, "!**/.git/*")
 		table.insert(vimgrep_arguments, "--multiline")
-
-		-- local Layout = require("nui.layout")
-		-- local Popup = require("nui.popup")
-
-		-- local TSLayout = require("telescope.pickers.layout")
-
-		-- local function make_popup(options)
-		--     local popup = Popup(options)
-		--     function popup.border:change_title(title)
-		--         popup.border.set_text(popup.border, "top", title)
-		--     end
-		--     return TSLayout.Window(popup)
-		-- end
-
-		local find_files = function(no_ignore, hidden)
-			local opts = {
-				no_ignore = no_ignore or false,
-				hidden = hidden ~= false,
-			}
-			if vim.o.lines >= 80 then
-				-- opts = themes.get_dropdown(opts)
-			end
-			builtin.find_files(opts)
-		end
-
-		local is_inside_work_tree = {}
-		local function project_files(no_ignore, hidden)
-			local opts = {
-				no_ignore = no_ignore or false,
-				hidden = hidden ~= false,
-			} -- define here if you want to define something
-
-			local cwd = vim.fn.getcwd()
-			if is_inside_work_tree[cwd] == nil then
-				vim.fn.system("git rev-parse --is-inside-work-tree")
-				is_inside_work_tree[cwd] = vim.v.shell_error == 0
-			end
-
-			if vim.o.lines >= 80 then
-				opts = require("telescope.themes").get_dropdown(opts)
-			end
-
-			if is_inside_work_tree[cwd] then
-				builtin.git_files(opts)
-			else
-				builtin.find_files(opts)
-			end
-		end
 
 		local image_cache = {}
 		local function render_image(filepath, max_width, callback)
@@ -208,32 +158,22 @@ return {
 					end
 				end,
 
-				-- `hidden = true` is not supported in text grep commands.
 				vimgrep_arguments = vimgrep_arguments,
 
-				-- layout_strategy = "flex",
-				layout_strategy = "dynamic",
+				layout_strategy = "flex",
 				layout_config = {
-					-- flex = {
-					-- 	flip_columns = 120,
-					-- 	flip_lines = 30,
-					-- },
+					flex = {
+						flip_columns = 190,
+						-- flip_lines = 70,
+					},
 					horizontal = {
 						preview_width = 0.55,
 					},
 					vertical = {
-						preview_height = 0.5,
+						preview_height = 0.70,
 					},
 				},
-
 				hidden = true,
-				-- layout_strategy = "vertical",
-				-- layout_config = {
-				-- preview_cutoff = 120,
-				-- prompt_position = "top",
-				-- width = 0.8,
-				-- preview_height = .5,
-				-- },
 				mappings = {
 					i = {
 						["<C-Up>"] = actions.cycle_history_prev,
@@ -248,36 +188,9 @@ return {
 					},
 					n = {
 						["<M-p>"] = layout.toggle_preview,
-
 						["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-
-						-- ["cd"] = function(prompt_bufnr)
-						--     local selection = require("telescope.actions.state").get_selected_entry()
-						--     local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-						--     require("telescope.actions").close(prompt_bufnr)
-						--     -- Depending on what you want put `cd`, `lcd`, `tcd`
-						--     vim.cmd(string.format("silent lcd %s", dir))
-						-- end,
 					},
 				},
-				-- vimgrep_arguments = {
-				--     "rg",
-				--     "--color=never",
-				--     "--no-heading",
-				--     "--with-filename",
-				--     "--line-number",
-				--     "--column",
-				--     "--smart-case",
-				--     "--glob=**/node_modules/**", -- Force include node_modules
-				--     "--glob=**/vendor/**",       -- Force include vendor
-				--     "--glob=/node%_modules/**",  -- Force include node_modules
-				--     "--glob=/vendor/**",         -- Force include vendor
-				-- },
-				-- file_ignore_patterns = {
-				--     "^!vendor/",
-				--     "^!node_modules/",
-				--     "^!node%_modules/",
-				-- },
 			},
 			pickers = {
 				find_files = {
@@ -300,7 +213,7 @@ return {
 					mappings = { -- extend mappings
 						i = {
 							["<C-k>"] = lga_actions.quote_prompt(),
-							["<C-j>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+							["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
 							-- freeze the current list and start a fuzzy search in the frozen list
 							["<C-space>"] = lga_actions.to_fuzzy_refine,
 						},
@@ -335,12 +248,33 @@ return {
 		vim.keymap.set("n", "<leader>pl", builtin.loclist, { desc = "Telescope loclist" })
 		vim.keymap.set("n", "<leader>pq", builtin.quickfix, { desc = "Telescope quickfix" })
 
-		vim.keymap.set("n", "<leader>pf", find_files, { desc = "Telescope find files" })
+		vim.keymap.set("n", "<leader>pf", function()
+            local opts = {}
+
+			if vim.o.columns < (vim.o.lines * 3) then
+				-- if vim.o.lines >= 80 then
+				-- opts = themes.get_dropdown(opts)
+			end
+
+			opts.hidden = true
+			opts.no_ignore = false
+
+			builtin.find_files(opts)
+		end, { desc = "Telescope find files" })
 		vim.keymap.set("n", "<leader>pF", function()
-			find_files(true, true)
+		    local opts = {}
+			if vim.o.columns < (vim.o.lines * 3) then
+				-- if vim.o.lines >= 80 then
+				-- opts = themes.get_dropdown(opts)
+			end
+
+			opts.hidden = true
+			opts.no_ignore = true
+
+			builtin.find_files(opts)
 		end, { desc = "Telescope find files (no ignore)" })
 
-		vim.keymap.set("n", "<C-S-p>", project_files, { desc = "Telescope git files" })
+		-- vim.keymap.set("n", "<C-S-p>", project_files, { desc = "Telescope git files" })
 
 		vim.keymap.set("n", "<leader>ps", function()
 			builtin.grep_string({ search = vim.fn.input("Grep > ") })
@@ -356,9 +290,9 @@ return {
 
 		vim.keymap.set("n", "<leader>pg", function()
 			-- builtin.live_grep()
-			require("telescope").extensions.live_grep_args.live_grep_args()
+			telescope.extensions.live_grep_args.live_grep_args()
 		end, { desc = "Telescope live grep" })
-		vim.keymap.set("n", "<leader>pG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+		-- vim.keymap.set("n", "<leader>pG", ":lua telescope.extensions.live_grep_args.live_grep_args()<CR>")
 
 		vim.keymap.set("n", "<space>fb", function()
 			telescope.extensions.file_browser.file_browser({

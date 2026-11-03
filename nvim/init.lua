@@ -1,2 +1,2 @@
-require('user')
+require('config.init')
 

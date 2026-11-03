@@ -1,23 +1,6 @@
-local local_config = vim.fn.stdpath("config") .. "/lua/user/local.lua"
-local local_config_tpl = vim.fn.stdpath("config") .. "/lua/user/local.lua.example"
-
--- auto-create local.lua if missing
-if vim.fn.filereadable(local_config) == 0 then
-    local src = io.open(local_config_tpl, "r")
-    local dst = io.open(local_config, "w")
-    if src and dst then
-        dst:write(src:read("*a"))
-        src:close()
-        dst:close()
-        vim.notify("Created lua/user/local.lua from template")
-    else
-        vim.notify("Failed to create local.lua", vim.log.levels.ERROR)
-    end
-end
-
-require("user.set")
-require("user.remap")
-require("user.lazy_init")
+require("config.set")
+require("config.remap")
+require("config.lazy")
 require('vim._core.ui2').enable({})
 
 local augroup = vim.api.nvim_create_augroup
