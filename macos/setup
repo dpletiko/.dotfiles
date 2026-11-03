@@ -47,7 +47,8 @@ brew install \
   duf \
   tree-sitter-cli \
   tectonic \
-  ghostscript ;
+  ghostscript \
+  unar;
 
 echo "[BREW CASK] Installing gui apps..."
 brew install --cask \
