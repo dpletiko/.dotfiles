@@ -37,6 +37,7 @@ config.background = {
 }
 
 config.color_scheme = "Gruvbox Dark"
+config.color_scheme = "GruvboxDark"
 
 config.enable_csi_u_key_encoding = true
 config.enable_kitty_keyboard = true
