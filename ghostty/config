@@ -56,8 +56,8 @@ background-image-position = center
 background-opacity = 1.0
 
 # Theme
-theme = Gruvbox Dark
 theme = Monokai SublimeText
+theme = Gruvbox Dark
 theme = Wez
 
 # Font
