@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Pick a project folder and open (or switch to) a tmux session for it.
+
+projects() {
+  find ~/git -maxdepth 4 \( -name node_modules -o -name vendor \) -prune \
+    -o -name .git -prune -print | sed 's|/\.git$||'
+}
+docker() {
+  find ~/docker -mindepth 1 -maxdepth 1 -type d
+}
+
+# called by fzf's reload with an argument: just print that list
+case "$1" in
+  projects) projects; exit ;;
+  docker) docker; exit ;;
+  all)   projects; docker; exit ;;
+esac
+
+self="$0"
+dir=$("$self" all | fzf --reverse \
+    --prompt 'all> ' \
+    --header 'ctrl-a: All  ·  ctrl-p: Projects  ·  ctrl-d: Docker' \
+    --bind "ctrl-a:change-prompt(all> )+reload($self all)" \
+    --bind "ctrl-p:change-prompt(projects> )+reload($self projects)" \
+    --bind "ctrl-o:change-prompt(docker> )+reload($self docker)" \
+    --preview 'ls -A {}' \
+    --preview-window 'right,40%,<100(down,40%)'
+) || exit 0
+
+name=$(basename "$dir" | tr . _)
+tmux has -t "=$name" 2>/dev/null || tmux new -d -s "$name" -c "$dir"
+tmux switch -t "=$name"
