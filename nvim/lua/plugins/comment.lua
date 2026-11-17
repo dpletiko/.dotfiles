@@ -7,6 +7,9 @@ return {
 	config = function()
 		require("ts_context_commentstring").setup({
 			enable_autocmd = false,
+			languages = {
+			    blade = "{{-- %s --}}"
+			},
 		})
 
 		local ts_commentstring = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
